@@ -8,7 +8,7 @@
   <style>
     /* Minimal, tilgængelig, enkeltfil-CSS (fokus på pænt layout/afstand) */
     :root{
-      --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
+      --bg:#111; --text:#fff; --muted:#cfcfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
       --radius:12px; --maxw:70rem; --space:clamp(1rem,2.2vw,1.6rem);
     }
     @media (prefers-color-scheme: light){
@@ -39,6 +39,8 @@
     .btn:hover,.btn:focus{background:var(--accent);color:#111}
     img{max-width:100%;height:auto;border-radius:10px}
     footer{border-top:1px solid rgba(255,255,255,.1);padding:1.2rem 0;margin-top:calc(var(--space)*1)}
+    /* Skjul visuelt men bevar anker til menu-link */
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
   </style>
 </head>
 <body>
@@ -65,7 +67,10 @@
       <p class="muted">Kort intro: hvem vi er, og hvad vi laver. (Erstat med rigtig tekst.)</p>
     </section>
 
-    <!-- Række 1: Hvad laver vi? · Bliv medlem -->
+    <!-- Skjult anker for at bevare menu-linket uden synlig kasse -->
+    <div id="bliv-medlem" class="sr-only" aria-hidden="true"></div>
+
+    <!-- Række 1: Hvad laver vi? · Billeder (Billeder rykket op) -->
     <section id="om" class="grid" aria-labelledby="om-titel">
       <article class="card">
         <h2 id="om-titel">Hvad laver vi?</h2>
@@ -76,20 +81,15 @@
           <li>Nationale træf</li>
         </ul>
       </article>
-      <article class="card" id="bliv-medlem" aria-labelledby="bliv-titel">
-        <h2 id="bliv-titel">Bliv medlem</h2>
-        <p>Allerede medlem af hovedorganisationen? Medlemskab af CP Ung er gratis. Tilføj 2–4 korte trin her.</p>
-        <ol>
-          <li>Alder: 13–35 år (fleksibelt).</li>
-          <li>Bopæl i <em>[land/region]</em>.</li>
-          <li>Har CP eller er forælder/pårørende.</li>
-        </ol>
-        <p class="muted">Her kan I senere indlejre jeres tilmeldingsformular eller linke til den.</p>
-        <p><a class="btn" href="#">Åbn tilmeldingsformular</a></p>
+      <article class="card" aria-labelledby="billeder-titel">
+        <h2 id="billeder-titel">Billeder</h2>
+        <p class="muted">Erstat med rigtige billeder. (Denne tekst er kun en pladsholder.)</p>
+        <img src="images/eksempel1.jpg" alt="Unge til et CP Ung-arrangement, der griner sammen" />
+        <img src="images/eksempel2.jpg" alt="Tilgængeligt lokale med rampe og siddepladser" />
       </article>
     </section>
 
-    <!-- Række 2: Nyheder (enkelt kort i fuld bredde) -->
+    <!-- Række 2: Nyheder (fuld bredde) -->
     <section id="nyheder" class="card" aria-labelledby="nyheder-titel">
       <h2 id="nyheder-titel">Nyheder</h2>
       <p class="muted">Pladsholder for korte opdateringer. I kan senere indsætte korte poster i ren HTML.</p>
@@ -99,14 +99,8 @@
       </ul>
     </section>
 
-    <!-- Række 3: Billeder · Følg os -->
+    <!-- Række 3: Følg os · Kontakt (Kontakt rykket op for at udfylde par) -->
     <section id="social" class="grid">
-      <article class="card" aria-labelledby="billeder-titel">
-        <h2 id="billeder-titel">Billeder</h2>
-        <p class="muted">Erstat med rigtige billeder. (Denne tekst er kun en pladsholder.)</p>
-        <img src="images/eksempel1.jpg" alt="Unge til et CP Ung-arrangement, der griner sammen">
-        <img src="images/eksempel2.jpg" alt="Tilgængeligt lokale med rampe og siddepladser">
-      </article>
       <article class="card" aria-labelledby="social-titel">
         <h2 id="social-titel">Følg os</h2>
         <p>
@@ -115,11 +109,7 @@
         </p>
         <p class="muted">Udskift # med jeres rigtige links.</p>
       </article>
-    </section>
-
-    <!-- Række 4: Kontakt -->
-    <section id="kontakt" class="grid" aria-labelledby="kontakt-titel">
-      <article class="card">
+      <article class="card" aria-labelledby="kontakt-titel">
         <h2 id="kontakt-titel">Kontakt</h2>
         <address>
           <p><strong>CP Ung</strong></p>
