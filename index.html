@@ -59,11 +59,13 @@
   </header>
 
   <main id="main" class="container" role="main">
+    <!-- Hero -->
     <section class="hero" aria-labelledby="titel">
       <h1 id="titel">CP Ung</h1>
       <p class="muted">Kort intro: hvem vi er, og hvad vi laver. (Erstat med rigtig tekst.)</p>
     </section>
 
+    <!-- Sektion 1: Hvad laver vi? + Bliv medlem (byttet ind her) -->
     <section id="om" class="grid" aria-labelledby="om-titel">
       <article class="card">
         <h2 id="om-titel">Hvad laver vi?</h2>
@@ -74,16 +76,7 @@
           <li>Nationale træf</li>
         </ul>
       </article>
-      <aside class="card" aria-labelledby="billeder-titel">
-        <h2 id="billeder-titel">Billeder</h2>
-        <p class="muted">Erstat med rigtige billeder. (Denne tekst er kun en pladsholder.)</p>
-        <img src="images/eksempel1.jpg" alt="Unge til et CP Ung-arrangement, der griner sammen">
-        <img src="images/eksempel2.jpg" alt="Tilgængeligt lokale med rampe og siddepladser">
-      </aside>
-    </section>
-
-    <section id="bliv-medlem" class="grid" aria-labelledby="bliv-titel">
-      <article class="card">
+      <article class="card" id="bliv-medlem" aria-labelledby="bliv-titel">
         <h2 id="bliv-titel">Bliv medlem</h2>
         <p>Allerede medlem af hovedorganisationen? Medlemskab af CP Ung er gratis. Tilføj 2–4 korte trin her.</p>
         <ol>
@@ -93,6 +86,16 @@
         </ol>
         <p class="muted">Her kan I senere indlejre jeres tilmeldingsformular eller linke til den.</p>
         <p><a class="btn" href="#">Åbn tilmeldingsformular</a></p>
+      </article>
+    </section>
+
+    <!-- Sektion 2: Følg os + Billeder (billeder flyttet herned) -->
+    <section id="social" class="grid">
+      <article class="card" aria-labelledby="billeder-titel">
+        <h2 id="billeder-titel">Billeder</h2>
+        <p class="muted">Erstat med rigtige billeder. (Denne tekst er kun en pladsholder.)</p>
+        <img src="images/eksempel1.jpg" alt="Unge til et CP Ung-arrangement, der griner sammen">
+        <img src="images/eksempel2.jpg" alt="Tilgængeligt lokale med rampe og siddepladser">
       </article>
       <article class="card" aria-labelledby="social-titel">
         <h2 id="social-titel">Følg os</h2>
@@ -104,6 +107,7 @@
       </article>
     </section>
 
+    <!-- Nyheder -->
     <section id="nyheder" class="card" aria-labelledby="nyheder-titel">
       <h2 id="nyheder-titel">Nyheder</h2>
       <p class="muted">Pladsholder for korte opdateringer. I kan senere indsætte korte poster i ren HTML.</p>
@@ -113,6 +117,7 @@
       </ul>
     </section>
 
+    <!-- Kontakt -->
     <section id="kontakt" class="grid" aria-labelledby="kontakt-titel">
       <article class="card">
         <h2 id="kontakt-titel">Kontakt</h2>
