@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CP Ung – Ungdomsafdelingen</title>
+  <meta name="description" content="CP Ung: Hvad vi laver, hvordan du bliver medlem, nyhedsbrev og kontakt." />
+  <style>
+    /* Minimal, tilgængelig, enkeltfil-CSS */
+    :root{
+      --bg:#111;--text:#fff;--muted:#cfcfcf;--panel:#1b1b1b;--link:#8ad1ff;--accent:#66e0a3;--focus:#ffbf47;--radius:12px;--maxw:70rem;--space:clamp(1rem,2vw,1.5rem)
+    }
+    @media (prefers-color-scheme: light){:root{--bg:#fff;--text:#111;--muted:#333;--panel:#f4f6f8;--link:#0969da;--accent:#007a5a;--focus:#9c2cf3}}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;line-height:1.6}
+    a{color:var(--link)}
+    a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--space)}
+    header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid rgba(255,255,255,.1)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    nav ul{display:flex;gap:.5rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+    nav a{text-decoration:none;color:var(--text);padding:.4rem .7rem;border-radius:8px}
+    nav a:hover,nav a:focus{background:var(--panel)}
+    .skip{position:absolute;left:0;top:-40px;background:var(--focus);color:#000;padding:.5rem .75rem;z-index:10}
+    .skip:focus{top:0}
+    .hero{padding:calc(var(--space)*2) 0}
+    .hero h1{margin:.2rem 0;font-size:clamp(1.8rem,5vw,2.6rem)}
+    .muted{color:var(--muted)}
+    .grid{display:grid;gap:var(--space);grid-template-columns:1fr}
+    @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+    .card{background:var(--panel);padding:var(--space);border-radius:var(--radius)}
+    .btn{display:inline-block;border:2px solid var(--accent);padding:.55rem 1rem;border-radius:999px;text-decoration:none;color:var(--text);font-weight:700}
+    .btn:hover,.btn:focus{background:var(--accent);color:#111}
+    .pdf{width:100%;height:70vh;border:0;border-radius:var(--radius);background:#fff}
+    footer{border-top:1px solid rgba(255,255,255,.1);margin-top:2rem;padding:1.2rem 0}
+    img{max-width:100%;height:auto;border-radius:10px}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Gå til hovedindhold</a>
+
+  <header>
+    <div class="container nav">
+      <div><strong>CP Ung – Ungdomsafdelingen</strong></div>
+      <nav aria-label="Hovednavigation">
+        <ul>
+          <li><a href="#om">Om os</a></li>
+          <li><a href="#bliv-medlem">Bliv medlem</a></li>
+          <li><a href="#nyhedsbrev">Nyhedsbrev</a></li>
+          <li><a href="#kontakt">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section class="hero" aria-labelledby="titel">
+      <h1 id="titel">CP Ung – enkel og tilgængelig side</h1>
+      <p class="muted">Kort intro: hvem vi er, og hvad vi laver. (Erstat med rigtig tekst.)</p>
+      <p><a class="btn" href="#bliv-medlem">Vær med</a></p>
+    </section>
+
+    <section id="om" class="grid" aria-labelledby="om-titel">
+      <article class="card">
+        <h2 id="om-titel">Hvad laver vi?</h2>
+        <p>Pladsholder: Vi arrangerer meetups, ture, online hangouts og peer‑støtte for unge med CP. (Erstat med jeres egen tekst.)</p>
+        <ul>
+          <li>Regelmæssige sociale arrangementer</li>
+          <li>Workshops og oplæg</li>
+          <li>Nationale træf</li>
+        </ul>
+      </article>
+      <aside class="card" aria-labelledby="billeder-titel">
+        <h2 id="billeder-titel">Billeder</h2>
+        <p class="muted">Erstat med rigtige billeder + meningsfuld alt‑tekst.</p>
+        <img src="images/eksempel1.jpg" alt="Unge til et CP Ung‑arrangement, der griner sammen">
+        <img src="images/eksempel2.jpg" alt="Tilgængeligt lokale med rampe og siddepladser">
+      </aside>
+    </section>
+
+    <section id="bliv-medlem" class="grid" aria-labelledby="bliv-titel">
+      <article class="card">
+        <h2 id="bliv-titel">Bliv medlem</h2>
+        <p>Allerede medlem af hovedorganisationen? Medlemskab af CP Ung er gratis. Tilføj 2–4 korte trin her.</p>
+        <ol>
+          <li>Alder: 13–35 år (fleksibelt).</li>
+          <li>Bopæl i <!-- ERSTAT --> [land/region].</li>
+          <li>Har CP eller er forælder/pårørende.</li>
+        </ol>
+        <p class="muted">Her kan I senere indlejre jeres Brevo‑tilmeldingsformular. Indtil videre kan I linke til den.</p>
+        <p><a class="btn" href="<!-- ERSTAT med Brevo‑link -->#">Åbn tilmeldingsformular</a></p>
+      </article>
+      <article class="card" aria-labelledby="social-titel">
+        <h2 id="social-titel">Følg os</h2>
+        <p>
+          <a class="btn" href="<!-- ERSTAT med Facebook‑URL -->#">Facebook</a>
+          <a class="btn" href="<!-- ERSTAT med Instagram‑URL -->#">Instagram</a>
+        </p>
+        <p class="muted">Udskift # med jeres rigtige links.</p>
+      </article>
+    </section>
+
+    <section id="nyhedsbrev" class="card" aria-labelledby="brev-titel">
+      <h2 id="brev-titel">Seneste nyhedsbrev</h2>
+      <p class="muted">Upload den nyeste PDF som <code>newsletter.pdf</code> i roden af repoet.</p>
+      <object class="pdf" data="newsletter.pdf" type="application/pdf" aria-label="Seneste nyhedsbrev (PDF)">
+        <p>Din browser kan ikke vise PDF’er. <a href="newsletter.pdf">Hent nyhedsbrevet (PDF)</a>.</p>
+      </object>
+      <p><a class="btn" href="newsletter.pdf" download>Download PDF</a></p>
+    </section>
+
+    <section id="kontakt" class="grid" aria-labelledby="kontakt-titel">
+      <article class="card">
+        <h2 id="kontakt-titel">Kontakt</h2>
+        <address>
+          <p><strong>CP Ung – Ungdomsafdelingen</strong></p>
+          <p>E‑mail: <a href="mailto:kontakt@cpung.dk">kontakt@cpung.dk</a></p>
+          <p>Telefon: <a href="tel:+45XXXXXXXX">+45 XX XX XX XX</a></p>
+          <p>Adresse: <!-- ERSTAT --> Eksempelvej 1, 1000 København</p>
+        </address>
+      </article>
+      <article class="card" aria-labelledby="tilg-titel">
+        <h2 id="tilg-titel">Tilgængelighed</h2>
+        <ul>
+          <li>Tastaturvenligt, synlig fokus og høj kontrast</li>
+          <li>Alt‑tekst til alle billeder</li>
+          <li>HTML‑alternativer til PDF hvor muligt</li>
+        </ul>
+        <p class="muted">Oplever du problemer? Skriv til <a href="mailto:tilgaengelighed@cpung.dk">tilgaengelighed@cpung.dk</a>.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p class="muted">© <span id="y"></span> CP Ung. Bygget af frivillige. Ingen trackere.</p>
+  </footer>
+  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+</body>
+</html>
+
