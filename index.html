@@ -4,21 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CP Ung</title>
-  <meta name="description" content="CP Ung: Hvad vi laver, hvordan du bliver medlem, nyheder og kontakt." />
+  <meta name="description" content="CP Ung: Hvad vi laver, hvordan du bliver medlem, aktuelt og kontakt." />
   <style>
-    /* Minimal, tilgængelig, enkeltfil-CSS (fokus på pænt layout/afstand) */
-    :root{
-      --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
-      --radius:12px; --maxw:70rem; --space:clamp(1rem,2.2vw,1.6rem);
-    }
+    :root{ --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
+      --radius:12px; --maxw:70rem; --space:clamp(1rem,2.2vw,1.6rem); }
     @media (prefers-color-scheme: light){
       :root{--bg:#fff; --text:#111; --muted:#333; --panel:#f4f6f8; --link:#0969da; --accent:#007a5a; --focus:#9c2cf3}
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
     body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;line-height:1.6}
-    a{color:var(--link)}
-    a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+    a{color:var(--link)} a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--space)}
     header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid rgba(255,255,255,.1)}
     .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:.75rem}
@@ -51,7 +46,7 @@
         <ul>
           <li><a href="#om">Om os</a></li>
           <li><a href="bliv-medlem/">Bliv medlem</a></li>
-          <li><a href="#nyheder">Nyheder</a></li>
+          <li><a href="#aktuelt">Aktuelt</a></li>
           <li><a href="#kontakt">Kontakt</a></li>
         </ul>
       </nav>
@@ -84,13 +79,13 @@
       </article>
     </section>
 
-    <!-- Række 2: Nyheder (fuld bredde) -->
-    <section id="nyheder" class="card" aria-labelledby="nyheder-titel">
-      <h2 id="nyheder-titel">Nyheder</h2>
+    <!-- Række 2: Aktuelt (fuld bredde) -->
+    <section id="aktuelt" class="card" aria-labelledby="aktuelt-titel">
+      <h2 id="aktuelt-titel">Aktuelt</h2>
       <p class="muted">Pladsholder for korte opdateringer. I kan senere indsætte korte poster i ren HTML.</p>
       <ul>
-        <li><strong>[Dato]</strong> Kort eksempelnyhed – 1–2 linjer tekst.</li>
-        <li><strong>[Dato]</strong> Endnu en kort nyhed – 1–2 linjer tekst.</li>
+        <li><strong>[Dato]</strong> Kort eksempelopdatering – 1–2 linjer tekst.</li>
+        <li><strong>[Dato]</strong> Endnu en kort opdatering – 1–2 linjer tekst.</li>
       </ul>
     </section>
 
