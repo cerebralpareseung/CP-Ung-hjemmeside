@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CP Ung</title>
-  <meta name="description" content="CP Ung: Hvad vi laver, hvordan du bliver medlem, aktuelt og kontakt." />
+  <meta name="description" content="CP Ung: Hvad vi laver, hvordan du bliver medlem, nyhedsbrev og kontakt." />
   <style>
     :root{ --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
       --radius:12px; --maxw:70rem; --space:clamp(1rem,2.2vw,1.6rem); }
@@ -47,7 +47,7 @@
         <ul>
           <li><a href="#om">Om os</a></li>
           <li><a href="bliv-medlem/">Bliv medlem</a></li>
-          <li><a href="#aktuelt">Aktuelt</a></li>
+          <li><a href="#nyhedsbrev">Nyhedsbrev</a></li>
           <li><a href="#kontakt">Kontakt</a></li>
         </ul>
       </nav>
@@ -60,6 +60,7 @@
       <p class="muted">Kort intro: hvem vi er, og hvad vi laver. (Erstat med rigtig tekst.)</p>
     </section>
 
+    <!-- Række 1: Hvad laver vi? · Billeder -->
     <section id="om" class="grid" aria-labelledby="om-titel">
       <article class="card">
         <h2 id="om-titel">Hvad laver vi?</h2>
@@ -78,14 +79,16 @@
       </article>
     </section>
 
-    <section id="aktuelt" class="card" aria-labelledby="aktuelt-titel">
-      <h2 id="aktuelt-titel">Aktuelt</h2>
+    <!-- Række 2: Nyhedsbrev (fuld bredde) -->
+    <section id="nyhedsbrev" class="card" aria-labelledby="nyhedsbrev-titel">
+      <h2 id="nyhedsbrev-titel">Nyhedsbrev</h2>
       <iframe class="html-embed" src="Nyhedsbrev.html" title="Seneste nyhedsbrev"></iframe>
       <p style="margin-top:.75rem">
         <a href="Nyhedsbrev.html" target="_blank" rel="noopener">Åbn nyhedsbrevet i nyt vindue</a>
       </p>
     </section>
 
+    <!-- Række 3: Følg os · Kontakt -->
     <section class="grid">
       <article class="card" aria-labelledby="social-titel">
         <h2 id="social-titel">Følg os</h2>
@@ -111,7 +114,6 @@
     <p class="muted">© <span id="y"></span> CP Ung</p>
   </footer>
   <script>
-    // Sæt årstal i footeren automatisk
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
