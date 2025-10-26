@@ -11,9 +11,11 @@
     @media (prefers-color-scheme: light){
       :root{--bg:#fff; --text:#111; --muted:#333; --panel:#f4f6f8; --link:#0969da; --accent:#007a5a; --focus:#9c2cf3}
     }
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
     body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;line-height:1.6}
-    a{color:var(--link)} a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+    a{color:var(--link)}
+    a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--space)}
     header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid rgba(255,255,255,.1)}
     .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:.75rem}
