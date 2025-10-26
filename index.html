@@ -34,6 +34,9 @@
     .btn:hover,.btn:focus{background:var(--accent);color:#111}
     img{max-width:100%;height:auto;border-radius:10px}
     footer{border-top:1px solid rgba(255,255,255,.1);padding:1.2rem 0;margin-top:calc(var(--space)*1)}
+
+    /* Indlejret HTML-nyhedsbrev */
+    .html-embed{width:100%;height:70vh;border:0;border-radius:var(--radius);background:#fff}
   </style>
 </head>
 <body>
@@ -82,11 +85,13 @@
     <!-- Række 2: Aktuelt (fuld bredde) -->
     <section id="aktuelt" class="card" aria-labelledby="aktuelt-titel">
       <h2 id="aktuelt-titel">Aktuelt</h2>
-      <p class="muted">Pladsholder for korte opdateringer. I kan senere indsætte korte poster i ren HTML.</p>
-      <ul>
-        <li><strong>[Dato]</strong> Kort eksempelopdatering – 1–2 linjer tekst.</li>
-        <li><strong>[Dato]</strong> Endnu en kort opdatering – 1–2 linjer tekst.</li>
-      </ul>
+
+      <!-- Seneste nyhedsbrev: indlejret HTML fra filen "Nyhedsbrev.html" i roden -->
+      <iframe class="html-embed" src="Nyhedsbrev.html" title="Seneste nyhedsbrev"></iframe>
+      <p style="margin-top:.75rem">
+        <a href="Nyhedsbrev.html" target="_blank" rel="noopener">Åbn nyhedsbrevet i nyt vindue</a>
+      </p>
+
     </section>
 
     <!-- Række 3: Følg os · Kontakt -->
