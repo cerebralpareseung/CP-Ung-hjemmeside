@@ -119,40 +119,6 @@
     <p class="muted">© <span id="y"></span> CP Ung. Bygget af frivillige. Ingen trackere.</p>
   </footer>
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
-
-  <!-- Dark-mode injection for the embedded newsletter -->
-  <script>
-    (function(){
-      var frame = document.querySelector('iframe.html-embed');
-      if(!frame) return;
-      var mql = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-      function inject(){
-        if(!mql || !mql.matches) return; // only apply in dark mode
-        try{
-          var doc = frame.contentDocument || frame.contentWindow.document;
-          if(!doc || !doc.head) return;
-          if(doc.getElementById('cpung-newsletter-dark')) return; // already injected
-          var link = doc.createElement('link');
-          link.id = 'cpung-newsletter-dark';
-          link.rel = 'stylesheet';
-          link.href = 'css/newsletter-dark.css';
-          doc.head.appendChild(link);
-        }catch(e){ /* ignore */ }
-      }
-      frame.addEventListener('load', inject);
-      if(mql && mql.addEventListener){
-        mql.addEventListener('change', function(){
-          try{
-            var d = frame.contentDocument || frame.contentWindow.document;
-            if(!d) return;
-            var existing = d.getElementById('cpung-newsletter-dark');
-            if(existing) existing.remove();
-          }catch(e){}
-          inject();
-        });
-      }
-    })();
-  </script>
 </body>
 </html>
 
