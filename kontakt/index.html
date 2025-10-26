@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CP Ung – Kontakt</title>
+  <meta name="description" content="Kontakt CP Ung: fælles mail og kontaktinfo på alle frivillige." />
+  <style>
+    :root{ --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
+      --radius:12px; --maxw:70rem; --space:clamp(1rem,2.2vw,1.6rem); }
+    @media (prefers-color-scheme: light){
+      :root{--bg:#fff; --text:#111; --muted:#333; --panel:#f4f6f8; --link:#0969da; --accent:#007a5a; --focus:#9c2cf3}
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;line-height:1.6}
+    a{color:var(--link)} a:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--space)}
+    header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid rgba(255,255,255,.1)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:.75rem}
+    nav ul{display:flex;gap:.5rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+    nav a{text-decoration:none;color:var(--text);padding:.45rem .75rem;border-radius:8px}
+    nav a:hover,nav a:focus{background:var(--panel)}
+    main > section{margin-block:calc(var(--space)*1.3)}
+    .card{background:var(--panel);padding:calc(var(--space)*1.1);border-radius:var(--radius)}
+    .muted{color:var(--muted)}
+
+    .member{display:flex;gap:1rem;align-items:flex-start}
+    .member img{width:84px;height:84px;border-radius:12px;object-fit:cover;background:#222}
+    .member h3{margin:.1rem 0 .15rem}
+    .member p{margin:.15rem 0}
+    .member small{color:var(--muted)}
+    .grid-people{display:grid;gap:var(--space);grid-template-columns:1fr}
+    @media(min-width:700px){.grid-people{grid-template-columns:1fr 1fr}}
+    @media(min-width:1000px){.grid-people{grid-template-columns:1fr 1fr 1fr}}
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Gå til hovedindhold</a>
+
+  <header>
+    <div class="container nav">
+      <div><strong><a href="../" style="text-decoration:none;color:inherit">CP Ung</a></strong></div>
+      <nav aria-label="Hovednavigation">
+        <ul>
+          <li><a href="../index.html#om">Om os</a></li>
+          <li><a href="../bliv-medlem/">Bliv medlem</a></li>
+          <li><a href="../index.html#nyhedsbrev">Nyhedsbrev</a></li>
+          <li><a href="./" aria-current="page">Kontakt</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container" role="main">
+    <!-- Fælles kontakt -->
+    <section class="card" aria-labelledby="kontakt-titel">
+      <h1 id="kontakt-titel">Kontakt</h1>
+      <p>Du kan altid skrive til vores fælles mail:</p>
+      <p><strong>E-mail:</strong> <a href="mailto:kontakt@cpung.dk">kontakt@cpung.dk</a></p>
+    </section>
+
+    <!-- Medlemmer (9 stk.) -->
+    <section class="card" aria-labelledby="hold-titel">
+      <h2 id="hold-titel">Frivilligteamet (9 personer)</h2>
+      <div class="grid-people">
+        <!-- Kopiér disse 9 blokke og ret navn/rolle/mail/billede -->
+        <article class="member" aria-labelledby="m1-navn">
+          <img src="../images/medlem1.jpg" alt="Portræt af Medlem 1" />
+          <div>
+            <h3 id="m1-navn">Medlem 1</h3>
+            <p><small>Rolle/titel</small></p>
+            <p><a href="mailto:medlem1@cpung.dk">medlem1@cpung.dk</a></p>
+          </div>
+        </article>
+
+        <article class="member" aria-labelledby="m2-navn">
+          <img src="../images/medlem2.jpg" alt="Portræt af Medlem 2" />
+          <div>
+            <h3 id="m2-navn">Medlem 2</h3>
+            <p><small>Rolle/titel</small></p>
+            <p><a href="mailto:medlem2@cpung.dk">medlem2@cpung.dk</a></p>
+          </div>
+        </article>
+
+        <article class="member" aria-labelledby="m3-navn">
+          <img src="../images/medlem3.jpg" alt="Portræt af Medlem 3" />
+          <div>
+            <h3 id="m3-navn">Medlem 3</h3>
+            <p><small>Rolle/titel</small></p>
+            <p><a href="mailto:medlem3@cpung.dk">medlem3@cpung.dk</a></p>
+          </div>
+        </article>
+
+        <article class="member" aria-labelledby="m4-navn">
+          <img src="../images/medlem4.jpg" alt="Portræt af Medlem 4" />
+          <div>
+            <h3 id="m4-navn">Medlem 4</h3>
+            <p><small>Rolle/titel</small></p>
+            <p><a href="mailto:medlem4@cpung.dk">medlem4@cpung.dk</a></p>
+          </div>
+        </article>
+
+        <article class="member" aria-labelledby="m5-navn">
+          <img src="../images/medlem5.jpg" alt="Portræt af Medlem 5" />
+          <div>
+            <h3 id="m5-navn">Medlem 5</h3>
+            <p><small>Rolle/titel</small></p>
+            <p><a href="mailto:medlem5@cpung.dk">medlem5@cpung.dk</a></p>
+          </div>
+        </article>
+
+        <article class="member" aria-labelledby="m6-navn">
+          <img src="../images/medlem6.jpg" alt="Portræt af Medlem 6" />
+          <div>
+            <h3 id="m6-navn">Medlem 6</h3>
+            <p><small>Rolle/titel</small></p>
+            <p><a href="mailto:medlem6@cpung.dk">medlem6@cpung.dk</a></p>
+          </div>
+        </article>
+
+        <article class="member" aria-labelledby="m7-navn">
+          <img src="../images/medlem7.jpg" alt="Portræt af Medlem 7" />
+          <div>
+            <h3 id="m7-navn">Medlem 7</h3>
+            <p><small>Rolle/titel</small></p>
+            <p><a href="mailto:medlem7@cpung.dk">medlem7@cpung.dk</a></p>
+          </div>
+        </article>
+
+        <article class="member" aria-labelledby="m8-navn">
+          <img src="../images/medlem8.jpg" alt="Portræt af Medlem 8" />
+          <div>
+            <h3 id="m8-navn">Medlem 8</h3>
+            <p><small>Rolle/titel</small></p>
+            <p><a href="mailto:medlem8@cpung.dk">medlem8@cpung.dk</a></p>
+          </div>
+        </article>
+
+        <article class="member" aria-labelledby="m9-navn">
+          <img src="../images/medlem9.jpg" alt="Portræt af Medlem 9" />
+          <div>
+            <h3 id="m9-navn">Medlem 9</h3>
+            <p><small>Rolle/titel</small></p>
+            <p><a href="mailto:medlem9@cpung.dk">medlem9@cpung.dk</a></p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p class="muted">© <span id="y"></span> CP Ung</p>
+  </footer>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
