@@ -6,10 +6,8 @@
   <title>CP Ung – Bliv medlem</title>
   <meta name="description" content="CP Ung – Bliv medlem: Information om medlemskab og hvordan du kommer i gang." />
   <style>
-    :root{
-      --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
-      --radius:12px; --maxw:70rem; --space:clamp(1rem,2.2vw,1.6rem);
-    }
+    :root{ --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
+      --radius:12px; --maxw:70rem; --space:clamp(1rem,2.2vw,1.6rem); }
     @media (prefers-color-scheme: light){
       :root{--bg:#fff; --text:#111; --muted:#333; --panel:#f4f6f8; --link:#0969da; --accent:#007a5a; --focus:#9c2cf3}
     }
@@ -42,7 +40,7 @@
         <ul>
           <li><a href="../index.html#om">Om os</a></li>
           <li><a href="./" aria-current="page">Bliv medlem</a></li>
-          <li><a href="../index.html#nyheder">Nyheder</a></li>
+          <li><a href="../index.html#nyhedsbrev">Nyhedsbrev</a></li>
           <li><a href="../index.html#kontakt">Kontakt</a></li>
         </ul>
       </nav>
@@ -69,7 +67,6 @@
     <p class="muted">© <span id="y"></span> CP Ung</p>
   </footer>
   <script>
-    // Sæt årstal i footeren automatisk
     document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
