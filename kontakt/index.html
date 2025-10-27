@@ -1,4 +1,17 @@
 <!doctype html>
+<!--
+  VEDLIGEHOLDELSES-NOTE (til bestyrelsen)
+  ---------------------------------------
+  Portræt-billeder ligger i: /images/bestyrelse/
+  Filnavn = navn som "slug", fx:
+    - nynne-suzet-friis-kristensen.jpg
+    - rasmus-duus-asmussen.jpg
+  TRIN for nyt medlem:
+    1) Upload billede til /images/bestyrelse/<navn-slug>.jpg
+    2) Kopiér en <article class="member">-blok nedenfor
+    3) Ret titel, navn, e-mail og billedets filnavn i src (og evt. i alt="")
+  Vi bruger RELATIVE stier (../images/...) så det virker på GitHub Pages projekt-sites.
+-->
 <html lang="da">
 <head>
   <meta charset="utf-8" />
@@ -33,7 +46,7 @@
     nav a{text-decoration:none;color:var(--text);padding:.45rem .75rem;border-radius:8px}
     nav a:hover,nav a:focus{background:var(--panel)}
 
-    /* Skip-link: skjult, men synlig ved fokus */
+    /* Skip-link: skjult, men synlig ved tastatur-fokus */
     .skip{position:absolute;left:0;top:-40px;background:var(--focus);color:#000;padding:.5rem .75rem;z-index:20}
     .skip:focus{top:0}
 
@@ -56,11 +69,18 @@
       .member{flex-direction:row;align-items:flex-start}
     }
 
-    /* Store portrætter */
+    /* PORTRÆT
+       – Beholder naturligt aspect ratio (ingen crop)
+       – Fylder godt på siden, men bliver ikke for stor
+    */
     .photo{
-      width:clamp(150px, 15vw, 220px);
-      height:clamp(150px, 15vw, 220px);
-      border-radius:14px;object-fit:cover;background:#222;flex:0 0 auto
+      width:clamp(180px, 18vw, 260px);
+      height:auto;                 /* vigtig: respekter naturlig højde */
+      max-height:420px;            /* sikkerhedsstop på meget høje billeder */
+      border-radius:14px;
+      object-fit:contain;          /* vi viser hele billedet */
+      background:#222;             /* diskret baggrund bag evt. transparente kanter */
+      flex:0 0 auto;
     }
 
     .details{flex:1 1 auto}
@@ -98,7 +118,7 @@
     <section class="card" aria-labelledby="hold-titel">
       <h2 id="hold-titel">Bestyrelsesmedlemmer</h2>
       <div class="grid-people">
-        <!-- Eksempel med "længste" værdier -->
+        <!-- Eksempel med længste værdier -->
         <article class="member" aria-labelledby="m1-navn">
           <img class="photo" src="../images/bestyrelse/nynne-suzet-friis-kristensen.jpg" alt="" />
           <div class="details">
@@ -108,7 +128,7 @@
           </div>
         </article>
 
-        <!-- Skift nedenfor til rigtige data + rigtige filnavne -->
+        <!-- Pladsholdere – ret navn/titel/e-mail og filnavn -->
         <article class="member" aria-labelledby="m2-navn">
           <img class="photo" src="../images/bestyrelse/medlem-2.jpg" alt="" />
           <div class="details">
@@ -178,7 +198,7 @@
           <div class="details">
             <div class="role">Supleant</div>
             <div id="m9-navn" class="name">Rasmus Duus Asmussen</div>
-            <div class="email"><a href="mailto:rasmus.duus.asmussen@gmail.com">rasmus.duus.asmussen@gmail.com</a></div>
+            <div class="email"><a href="mailto:rasmus.duus.asmussen@gmail.com">rasmus-duus.asmussen@gmail.com</a></div>
           </div>
         </article>
       </div>
