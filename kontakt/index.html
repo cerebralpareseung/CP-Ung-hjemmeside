@@ -5,7 +5,7 @@
     - Portrætbilleder ligger i /images/bestyrelse/
     - Filnavn = navn som slug, fx: nynne-suzet-friis-kristensen.jpg
     - Kopiér en <article class="member">-blok og ret titel/navn/e-mail + src.
-  Vi bruger relative stier (../images/...) så det virker på GitHub Pages projekt-sites.
+  Headeren indlæses som fælles fragment fra /partials/header.html
 -->
 <html lang="da">
 <head>
@@ -16,9 +16,7 @@
   <style>
     :root{
       --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
-      --radius:12px;
-      --maxw:84rem;
-      --space:clamp(0.9rem, 1.6vw, 1.3rem);
+      --radius:12px; --maxw:84rem; --space:clamp(0.9rem, 1.6vw, 1.3rem);
     }
     @media (prefers-color-scheme: light){
       :root{--bg:#fff; --text:#111; --muted:#333; --panel:#f4f6f8; --link:#0969da; --accent:#007a5a; --focus:#9c2cf3}
@@ -29,53 +27,10 @@
     body{
       margin:0;background:var(--bg);color:var(--text);
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;
-      line-height:1.6;
-      font-size: clamp(17px, 1.25vw, 19px);
+      line-height:1.6;font-size: clamp(17px, 1.25vw, 19px);
     }
-
     a{color:var(--link)} a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 calc(var(--space)*0.9)}
-
-    /* Header + nav */
-    header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid rgba(255,255,255,.1)}
-    .nav{
-      display:flex;align-items:center;justify-content:space-between;gap:.75rem;min-height:64px;
-      position:relative; /* så mobilmenu kan positioneres ift. header */
-    }
-
-    /* Skip-link: helt skjult indtil fokus (fjerner gul/lilla stribe) */
-    .skip{
-      position:absolute;left:0;top:0;transform:translateY(-200%);
-      background:var(--focus);color:#000;padding:.5rem .75rem;z-index:20;transition:transform .2s ease
-    }
-    .skip:focus{transform:translateY(0)}
-
-    /* Brand på én linje */
-    .brand a{white-space:nowrap;text-decoration:none;color:inherit;display:inline-block}
-
-    /* Desktop-nav (vandret) */
-    nav ul{list-style:none;margin:0;padding:0;display:flex;gap:.5rem;flex-wrap:wrap}
-    nav a{text-decoration:none;color:var(--text);padding:.45rem .75rem;border-radius:8px;display:block}
-    nav a:hover,nav a:focus{background:var(--panel)}
-
-    /* Hamburger (mobil) */
-    .nav-toggle{display:none} /* skjul checkbox */
-    .hamburger{
-      display:none;cursor:pointer;padding:.5rem;border-radius:10px;border:1px solid rgba(255,255,255,.12);
-    }
-    .hamburger:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
-    .hamburger .bar{display:block;width:26px;height:2px;background:var(--text);margin:6px 0;border-radius:2px}
-
-    @media (max-width: 899px){
-      .hamburger{display:block}
-      nav{position:absolute;left:0;right:0;top:100%}
-      nav ul{
-        display:none;flex-direction:column;gap:0;margin:.35rem 0 0;padding:.25rem;
-        background:var(--panel);border-radius:12px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.45)
-      }
-      nav li+li{border-top:1px solid rgba(255,255,255,.08)}
-      .nav-toggle:checked ~ nav ul{display:flex}
-    }
 
     /* Layout */
     main > section{margin-block:calc(var(--space)*1.0)}
@@ -94,16 +49,11 @@
       background:rgba(255,255,255,0.03);padding:calc(var(--space)*1.0);border-radius:12px
     }
     @media(min-width:900px){
-      .member{
-        flex-direction:row;
-        align-items:stretch;        /* højde følger billedet */
-      }
-      .details{
-        display:flex;flex-direction:column;justify-content:center; /* centrér tekst lodret */
-      }
+      .member{flex-direction:row;align-items:stretch}
+      .details{display:flex;flex-direction:column;justify-content:center}
     }
 
-    /* Portræt: bevar naturligt aspect ratio (ingen crop) */
+    /* Portræt: bevar naturligt aspect ratio */
     .photo{
       width:clamp(180px, 18vw, 260px);
       height:auto;
@@ -123,28 +73,33 @@
   </style>
 </head>
 <body>
-  <a class="skip" href="#main">Gå til hovedindhold</a>
+  <!-- [Fælles header] -->
+  <meta name="site-base" content="../">
+  <div id="site-header"></div>
+  <script>
+    (function(){
+      const base = document.querySelector('meta[name="site-base"]')?.content || '../';
+      fetch(base + 'partials/header.html')
+        .then(r => r.text())
+        .then(html => {
+          const host = document.getElementById('site-header');
+          host.outerHTML = html;
 
-  <header>
-    <div class="container nav">
-      <div class="brand"><strong><a href="../">CP Ung</a></strong></div>
+          // Sæt korrekte hrefs ud fra data-path + base
+          document.querySelectorAll('[data-path]').forEach(a => {
+            a.setAttribute('href', base + a.getAttribute('data-path'));
+          });
 
-      <!-- Mobil: checkbox + label som hamburger -->
-      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
-      <label for="nav-toggle" class="hamburger" aria-label="Åbn menu" aria-controls="primary-nav" aria-expanded="false">
-        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-      </label>
-
-      <nav aria-label="Hovednavigation">
-        <ul id="primary-nav">
-          <li><a href="../index.html#om">Om os</a></li>
-          <li><a href="../bliv-medlem/">Bliv medlem</a></li>
-          <li><a href="../index.html#nyhedsbrev">Nyhedsbrev</a></li>
-          <li><a href="./" aria-current="page">Kontakt</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+          // ARIA for hamburger
+          const t = document.getElementById('nav-toggle');
+          const b = document.querySelector('label[for="nav-toggle"]');
+          if(t && b){
+            const sync = () => b.setAttribute('aria-expanded', t.checked ? 'true' : 'false');
+            t.addEventListener('change', sync); sync();
+          }
+        });
+    })();
+  </script>
 
   <main id="main" class="container" role="main">
     <!-- Fælles kontakt -->
@@ -235,7 +190,7 @@
           <div class="details">
             <div class="role">Supleant</div>
             <div id="m9-navn" class="name">Rasmus Duus Asmussen</div>
-            <div class="email"><a href="mailto:rasmus.duus.asmussen@gmail.com">rasmus.duus.asmussen@gmail.com</a></div>
+            <div class="email"><a href="mailto:rasmus-duus.asmussen@gmail.com">rasmus-duus.asmussen@gmail.com</a></div>
           </div>
         </article>
       </div>
@@ -246,14 +201,6 @@
     <p class="muted">© <span id="y"></span> CP Ung</p>
   </footer>
 
-  <!-- Lille JS for korrekt aria-tilstand på hamburgeren -->
-  <script>
-    const toggle = document.getElementById('nav-toggle');
-    const btn = document.querySelector('label[for="nav-toggle"]');
-    function syncAria(){ btn.setAttribute('aria-expanded', toggle.checked ? 'true' : 'false'); }
-    toggle.addEventListener('change', syncAria);
-    syncAria();
-  </script>
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
