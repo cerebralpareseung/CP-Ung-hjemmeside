@@ -2,14 +2,14 @@
 <!--
   VEDLIGEHOLDELSES-NOTE (til bestyrelsen)
   ---------------------------------------
-  Portræt-billeder ligger i: /images/bestyrelse/
+  Portrætbilleder ligger i: /images/bestyrelse/
   Filnavn = navn som "slug", fx:
     - nynne-suzet-friis-kristensen.jpg
     - rasmus-duus-asmussen.jpg
   TRIN for nyt medlem:
     1) Upload billede til /images/bestyrelse/<navn-slug>.jpg
     2) Kopiér en <article class="member">-blok nedenfor
-    3) Ret titel, navn, e-mail og billedets filnavn i src (og evt. i alt="")
+    3) Ret titel, navn, e-mail og billedets filnavn i src (og evt. alt="")
   Vi bruger RELATIVE stier (../images/...) så det virker på GitHub Pages projekt-sites.
 -->
 <html lang="da">
@@ -69,17 +69,14 @@
       .member{flex-direction:row;align-items:flex-start}
     }
 
-    /* PORTRÆT
-       – Beholder naturligt aspect ratio (ingen crop)
-       – Fylder godt på siden, men bliver ikke for stor
-    */
+    /* PORTRÆT: bevar naturligt aspect ratio (ingen crop) */
     .photo{
       width:clamp(180px, 18vw, 260px);
-      height:auto;                 /* vigtig: respekter naturlig højde */
-      max-height:420px;            /* sikkerhedsstop på meget høje billeder */
+      height:auto;
+      max-height:420px;
       border-radius:14px;
-      object-fit:contain;          /* vi viser hele billedet */
-      background:#222;             /* diskret baggrund bag evt. transparente kanter */
+      object-fit:contain;  /* vis hele billedet */
+      background:#222;
       flex:0 0 auto;
     }
 
@@ -114,13 +111,12 @@
       <p><strong>E-mail:</strong> <a href="mailto:cerebralpareseung@gmail.com">cerebralpareseung@gmail.com</a></p>
     </section>
 
-    <!-- Bestyrelsesmedlemmer -->
+    <!-- Bestyrelsesmedlemmer – TEST: samme billede på alle -->
     <section class="card" aria-labelledby="hold-titel">
       <h2 id="hold-titel">Bestyrelsesmedlemmer</h2>
       <div class="grid-people">
-        <!-- Eksempel med længste værdier -->
         <article class="member" aria-labelledby="m1-navn">
-          <img class="photo" src="../images/bestyrelse/nynne-suzet-friis-kristensen.jpg" alt="" />
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
           <div class="details">
             <div class="role">Næstformand (HB-medlem)</div>
             <div id="m1-navn" class="name">Nynne Suzet Friis Kristensen</div>
@@ -128,9 +124,8 @@
           </div>
         </article>
 
-        <!-- Pladsholdere – ret navn/titel/e-mail og filnavn -->
         <article class="member" aria-labelledby="m2-navn">
-          <img class="photo" src="../images/bestyrelse/medlem-2.jpg" alt="" />
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
           <div class="details">
             <div class="role">Formand</div>
             <div id="m2-navn" class="name">Medlem 2</div>
@@ -139,7 +134,7 @@
         </article>
 
         <article class="member" aria-labelledby="m3-navn">
-          <img class="photo" src="../images/bestyrelse/medlem-3.jpg" alt="" />
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
           <div class="details">
             <div class="role">Bestyrelsesmedlem</div>
             <div id="m3-navn" class="name">Medlem 3</div>
@@ -148,7 +143,7 @@
         </article>
 
         <article class="member" aria-labelledby="m4-navn">
-          <img class="photo" src="../images/bestyrelse/medlem-4.jpg" alt="" />
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
           <div class="details">
             <div class="role">Bestyrelsesmedlem</div>
             <div id="m4-navn" class="name">Medlem 4</div>
@@ -157,7 +152,7 @@
         </article>
 
         <article class="member" aria-labelledby="m5-navn">
-          <img class="photo" src="../images/bestyrelse/medlem-5.jpg" alt="" />
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
           <div class="details">
             <div class="role">Bestyrelsesmedlem</div>
             <div id="m5-navn" class="name">Medlem 5</div>
@@ -166,7 +161,7 @@
         </article>
 
         <article class="member" aria-labelledby="m6-navn">
-          <img class="photo" src="../images/bestyrelse/medlem-6.jpg" alt="" />
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
           <div class="details">
             <div class="role">Bestyrelsesmedlem</div>
             <div id="m6-navn" class="name">Medlem 6</div>
@@ -175,7 +170,7 @@
         </article>
 
         <article class="member" aria-labelledby="m7-navn">
-          <img class="photo" src="../images/bestyrelse/medlem-7.jpg" alt="" />
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
           <div class="details">
             <div class="role">Bestyrelsesmedlem</div>
             <div id="m7-navn" class="name">Medlem 7</div>
@@ -184,7 +179,7 @@
         </article>
 
         <article class="member" aria-labelledby="m8-navn">
-          <img class="photo" src="../images/bestyrelse/medlem-8.jpg" alt="" />
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
           <div class="details">
             <div class="role">Bestyrelsesmedlem</div>
             <div id="m8-navn" class="name">Medlem 8</div>
@@ -192,13 +187,12 @@
           </div>
         </article>
 
-        <!-- Medlem 9 – Rasmus -->
         <article class="member" aria-labelledby="m9-navn">
           <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
           <div class="details">
             <div class="role">Supleant</div>
             <div id="m9-navn" class="name">Rasmus Duus Asmussen</div>
-            <div class="email"><a href="mailto:rasmus.duus.asmussen@gmail.com">rasmus-duus.asmussen@gmail.com</a></div>
+            <div class="email"><a href="mailto:rasmus.duus.asmussen@gmail.com">rasmus.duus.asmussen@gmail.com</a></div>
           </div>
         </article>
       </div>
