@@ -1,16 +1,11 @@
 <!doctype html>
 <!--
-  VEDLIGEHOLDELSES-NOTE (til bestyrelsen)
-  ---------------------------------------
-  Portrætbilleder ligger i: /images/bestyrelse/
-  Filnavn = navn som "slug", fx:
-    - nynne-suzet-friis-kristensen.jpg
-    - rasmus-duus-asmussen.jpg
-  TRIN for nyt medlem:
-    1) Upload billede til /images/bestyrelse/<navn-slug>.jpg
-    2) Kopiér en <article class="member">-blok nedenfor
-    3) Ret titel, navn, e-mail og billedets filnavn i src (og evt. alt="")
-  Vi bruger RELATIVE stier (../images/...) så det virker på GitHub Pages projekt-sites.
+  TEST: Samme billede på alle medlemmer for at se fuldt layout.
+  Vedligehold (senere):
+    - Portrætter ligger i /images/bestyrelse/
+    - Filnavn = navn som slug, fx: nynne-suzet-friis-kristensen.jpg
+    - Kopiér en <article class="member">-blok og ret titel/navn/e-mail + src.
+  Vi bruger relative stier (../images/...) så det virker på GitHub Pages projekt-sites.
 -->
 <html lang="da">
 <head>
@@ -66,10 +61,18 @@
       background:rgba(255,255,255,0.03);padding:calc(var(--space)*1.0);border-radius:12px
     }
     @media(min-width:900px){
-      .member{flex-direction:row;align-items:flex-start}
+      .member{
+        flex-direction:row;
+        align-items:stretch; /* så højden følger billedets højde */
+      }
+      .details{
+        display:flex;
+        flex-direction:column;
+        justify-content:center; /* <-- centrér teksten lodret */
+      }
     }
 
-    /* PORTRÆT: bevar naturligt aspect ratio (ingen crop) */
+    /* Portræt: bevar naturligt aspect ratio (ingen crop) */
     .photo{
       width:clamp(180px, 18vw, 260px);
       height:auto;
