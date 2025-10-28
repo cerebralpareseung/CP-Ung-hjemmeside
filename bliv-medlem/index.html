@@ -1,3 +1,13 @@
+Yes! Her er **Bliv medlem**-siden opdateret med:
+
+* **Hamburger-menu på mobil** (samme som forsiden).
+* **Skip-link fix** (ingen gul/lilla streg).
+* Navigation linker korrekt: **Om os** → `../index.html#om`, **Nyhedsbrev** → `../index.html#nyhedsbrev`, **Kontakt** → `../kontakt/`.
+* Footer forenklet til **© ÅR CP Ung**.
+
+Kopiér hele filen nedenfor ind i `bliv-medlem/index.html`:
+
+```html
 <!doctype html>
 <html lang="da">
 <head>
@@ -6,12 +16,9 @@
   <title>CP Ung – Bliv medlem</title>
   <meta name="description" content="CP Ung – Bliv medlem: Information om medlemskab og hvordan du kommer i gang." />
   <style>
-    /* Læsebarheds-opsætning som forsiden */
     :root{
       --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
-      --radius:12px;
-      --maxw:84rem;                         /* lidt bredere end før */
-      --space:clamp(0.9rem, 1.6vw, 1.3rem); /* en smule strammere spacing */
+      --radius:12px; --maxw:70rem; --space:clamp(1rem,2.2vw,1.6rem);
     }
     @media (prefers-color-scheme: light){
       :root{--bg:#fff; --text:#111; --muted:#333; --panel:#f4f6f8; --link:#0969da; --accent:#007a5a; --focus:#9c2cf3}
@@ -21,33 +28,61 @@
     html{scroll-behavior:smooth}
     body{
       margin:0;background:var(--bg);color:var(--text);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;
-      line-height:1.6;
-      font-size: clamp(17px, 1.25vw, 19px); /* lidt større tekst på desktop */
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;line-height:1.6
     }
-
     a{color:var(--link)}
     a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 var(--space)}
 
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 calc(var(--space)*0.9)}
-
+    /* Header + nav */
     header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid rgba(255,255,255,.1)}
-    .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:.75rem}
-    nav ul{display:flex;gap:.5rem;list-style:none;margin:0;padding:0;flex-wrap:wrap}
-    nav a{text-decoration:none;color:var(--text);padding:.45rem .75rem;border-radius:8px}
+    .nav{
+      display:flex;align-items:center;justify-content:space-between;gap:.75rem;min-height:64px;
+      position:relative; /* så mobilmenu kan positioneres ift. header */
+    }
+
+    /* Skip-link: helt skjult indtil fokus (fjerner striben) */
+    .skip{
+      position:absolute;left:0;top:0;transform:translateY(-200%);
+      background:var(--focus);color:#000;padding:.5rem .75rem;z-index:20;transition:transform .2s ease
+    }
+    .skip:focus{transform:translateY(0)}
+
+    /* Brand på én linje */
+    .brand a{white-space:nowrap;text-decoration:none;color:inherit;display:inline-block}
+
+    /* Desktop-nav (vandret) */
+    nav ul{list-style:none;margin:0;padding:0;display:flex;gap:.5rem;flex-wrap:wrap}
+    nav a{text-decoration:none;color:var(--text);padding:.45rem .75rem;border-radius:8px;display:block}
     nav a:hover,nav a:focus{background:var(--panel)}
 
-    .skip{position:absolute;left:0;top:-40px;background:var(--focus);color:#000;padding:.5rem .75rem;z-index:20}
-    .skip:focus{top:0}
+    /* Hamburger (mobil) */
+    .nav-toggle{display:none} /* skjul checkbox */
+    .hamburger{
+      display:none;cursor:pointer;padding:.5rem;border-radius:10px;border:1px solid rgba(255,255,255,.12);
+    }
+    .hamburger:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+    .hamburger .bar{display:block;width:26px;height:2px;background:var(--text);margin:6px 0;border-radius:2px}
 
-    /* En smule mindre vertikale mellemrum end før */
-    main > section{margin-block:calc(var(--space)*1.0)}
-    .card{background:var(--panel);padding:calc(var(--space)*1.0);border-radius:var(--radius)}
+    @media (max-width: 899px){
+      .hamburger{display:block}
+      nav{position:absolute;left:0;right:0;top:100%}
+      nav ul{
+        display:none;flex-direction:column;gap:0;margin:.35rem 0 0;padding:.25rem;
+        background:var(--panel);border-radius:12px;overflow:hidden;box-shadow:0 10px 28px rgba(0,0,0,.45)
+      }
+      nav li+li{border-top:1px solid rgba(255,255,255,.08)}
+      .nav-toggle:checked ~ nav ul{display:flex}
+    }
+
+    /* Indhold */
+    main > section{margin-block:calc(var(--space)*1.3)}
+    .card{background:var(--panel);padding:calc(var(--space)*1.1);border-radius:var(--radius)}
     .muted{color:var(--muted)}
-    h1{margin:.2rem 0;font-size:clamp(1.8rem,3.4vw,2.4rem);line-height:1.2}
-    h2{font-size: clamp(1.25rem, 2.1vw, 1.65rem); line-height:1.3; margin-top:0.1rem}
+    h1{margin:.2rem 0;font-size:clamp(1.9rem,3.2vw,2.4rem);line-height:1.2}
+    h2{font-size:clamp(1.25rem,2.1vw,1.6rem);line-height:1.3;margin-top:.1rem}
 
-    footer{border-top:1px solid rgba(255,255,255,.1);padding:1rem 0;margin-top:calc(var(--space)*0.9)}
+    footer{border-top:1px solid rgba(255,255,255,.1);padding:1.2rem 0;margin-top:calc(var(--space)*1)}
   </style>
 </head>
 <body>
@@ -55,9 +90,16 @@
 
   <header>
     <div class="container nav">
-      <div><strong><a href="../" style="text-decoration:none;color:inherit">CP Ung</a></strong></div>
+      <div class="brand"><strong><a href="../">CP Ung</a></strong></div>
+
+      <!-- Mobil: checkbox + label som hamburger -->
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+      <label for="nav-toggle" class="hamburger" aria-label="Åbn menu" aria-controls="primary-nav" aria-expanded="false">
+        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
+      </label>
+
       <nav aria-label="Hovednavigation">
-        <ul>
+        <ul id="primary-nav">
           <li><a href="../index.html#om">Om os</a></li>
           <li><a href="./" aria-current="page">Bliv medlem</a></li>
           <li><a href="../index.html#nyhedsbrev">Nyhedsbrev</a></li>
@@ -82,16 +124,26 @@
         <li>Pladsholder: Vi bekræfter din tilmelding pr. e-mail.</li>
       </ol>
 
-      <p>Har du spørgsmål? Skriv til <a href="mailto:kontakt@cpung.dk">kontakt@cpung.dk</a>.</p>
+      <p>Har du spørgsmål? Skriv til <a href="mailto:cerebralpareseung@gmail.com">cerebralpareseung@gmail.com</a>.</p>
     </section>
   </main>
 
   <footer class="container">
     <p class="muted">© <span id="y"></span> CP Ung</p>
   </footer>
+
+  <!-- Lille JS for korrekt aria-tilstand på hamburgeren -->
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+    const toggle = document.getElementById('nav-toggle');
+    const btn = document.querySelector('label[for="nav-toggle"]');
+    function syncAria(){ btn.setAttribute('aria-expanded', toggle.checked ? 'true' : 'false'); }
+    toggle.addEventListener('change', syncAria);
+    syncAria();
   </script>
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
+```
+
+Sig til, hvis du også vil have samme header-fix i en fælles CSS/JS-fil, så vi fremover kun opdaterer ét sted.
 
