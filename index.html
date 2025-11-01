@@ -41,7 +41,7 @@
     /* Sociale ikoner – store */
     .social-buttons{display:flex;gap:1rem;flex-wrap:wrap}
     .social-btn{
-      width:5rem;   /* 80px */
+      width:5rem; /* 80px */
       height:5rem;
       display:inline-flex;
       align-items:center;
@@ -51,8 +51,16 @@
     }
     .social-btn img{
       display:block;
-      width:3.5rem;   /* 56px */
+      width:3.5rem; /* 56px */
       height:auto;
+    }
+    .social-divider{
+      border-top:1px solid rgba(255,255,255,.1);
+      margin-top:1.25rem;
+      padding-top:1.25rem;
+    }
+    @media (prefers-color-scheme: light){
+      .social-divider{border-top:1px solid rgba(0,0,0,.08);}
     }
     .sr-only{
       position:absolute;width:1px;height:1px;padding:0;margin:-1px;
@@ -123,15 +131,24 @@
     <section class="grid">
       <article class="card" aria-labelledby="social-titel">
         <h2 id="social-titel">Følg os</h2>
-        <div class="social-buttons">
+        <div class="social-buttons" aria-label="Officielle profiler">
           <a class="social-btn" href="https://www.facebook.com/ungmedcp/" aria-label="Følg os på Facebook">
-            <span class="sr-only">Facebook</span>
+            <span class="sr-only">Facebook-side</span>
             <img src="images/social/Facebook_Logo_Primary.png" alt="" width="80" height="80" loading="lazy" />
           </a>
           <a class="social-btn" href="https://www.instagram.com/ungmedcp/" aria-label="Følg os på Instagram">
-            <span class="sr-only">Instagram</span>
+            <span class="sr-only">Instagram-profil</span>
             <img src="images/social/Instagram_Glyph_Gradient.png" alt="" width="80" height="80" loading="lazy" />
           </a>
+        </div>
+
+        <div class="social-divider">
+          <p class="muted" style="margin-bottom:.45rem;">Vi har også en Facebook-gruppe kun for unge med CP:</p>
+          <p style="margin:0">
+            <a href="https://www.facebook.com/groups/1085576868477723">
+              Gå til medlemsgruppen på Facebook
+            </a>
+          </p>
         </div>
       </article>
 
