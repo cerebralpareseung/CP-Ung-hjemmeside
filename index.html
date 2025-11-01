@@ -38,11 +38,11 @@
     footer{border-top:1px solid rgba(255,255,255,.1);padding:1rem 0;margin-top:calc(var(--space)*0.9)}
     .html-embed{width:100%;height:70vh;border:0;border-radius:var(--radius);background:#fff}
 
-    /* Sociale ikoner – med clear space 1/4 X (ca. 15px ved 60px) */
+    /* Sociale ikoner – store */
     .social-buttons{display:flex;gap:1rem;flex-wrap:wrap}
     .social-btn{
-      width:3.75rem; /* 60px */
-      height:3.75rem;
+      width:5rem;   /* 80px */
+      height:5rem;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -51,10 +51,8 @@
     }
     .social-btn img{
       display:block;
-      width:2.25rem;   /* 36px logo */
+      width:3.5rem;   /* 56px */
       height:auto;
-      padding:0.75rem; /* 12px ≈ 1/4 af 48 / vi har 60, så det er ok */
-      background:transparent;
     }
     .sr-only{
       position:absolute;width:1px;height:1px;padding:0;margin:-1px;
@@ -93,7 +91,7 @@
       <p class="muted">Kort intro: hvem vi er, og hvad vi laver. (Erstat med rigtig tekst.)</p>
     </section>
 
-    <!-- Række 1: Hvad laver vi? · Billeder -->
+    <!-- Række 1 -->
     <section id="om" class="grid" aria-labelledby="om-titel">
       <article class="card">
         <h2 id="om-titel">Hvad laver vi?</h2>
@@ -112,7 +110,7 @@
       </article>
     </section>
 
-    <!-- Række 2: Nyhedsbrev -->
+    <!-- Række 2 -->
     <section id="nyhedsbrev" class="card" aria-labelledby="nyhedsbrev-titel">
       <h2 id="nyhedsbrev-titel">Nyhedsbrev</h2>
       <iframe class="html-embed" src="Nyhedsbrev.html" title="Seneste nyhedsbrev"></iframe>
@@ -121,18 +119,18 @@
       </p>
     </section>
 
-    <!-- Række 3: Følg os · Kontakt -->
+    <!-- Række 3 -->
     <section class="grid">
       <article class="card" aria-labelledby="social-titel">
         <h2 id="social-titel">Følg os</h2>
         <div class="social-buttons">
           <a class="social-btn" href="https://www.facebook.com/ungmedcp/" aria-label="Følg os på Facebook">
             <span class="sr-only">Facebook</span>
-            <img src="images/social/Facebook_Logo_Primary.png" alt="" width="48" height="48" loading="lazy" />
+            <img src="images/social/Facebook_Logo_Primary.png" alt="" width="80" height="80" loading="lazy" />
           </a>
           <a class="social-btn" href="https://www.instagram.com/ungmedcp/" aria-label="Følg os på Instagram">
             <span class="sr-only">Instagram</span>
-            <img src="images/social/Instagram_Glyph_Gradient.png" alt="" width="48" height="48" loading="lazy" />
+            <img src="images/social/Instagram_Glyph_Gradient.png" alt="" width="80" height="80" loading="lazy" />
           </a>
         </div>
       </article>
