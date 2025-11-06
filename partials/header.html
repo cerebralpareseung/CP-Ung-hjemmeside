@@ -1,66 +1,64 @@
-<!-- /partials/header.html -->
-<div class="site-header">
-  <style>
-    /* Header-styles er scoping med .site-header for at undgå kollisioner */
-    .site-header { position: sticky; top: 0; z-index: 10; background: var(--bg, #111); }
-    .site-header .barline { border-bottom:1px solid rgba(255,255,255,.1); }
-    .site-header .wrap { max-width: var(--maxw, 84rem); margin: 0 auto; padding: 0 clamp(0.9rem,1.6vw,1.3rem); }
+<header class="site-header">
+  <div class="container nav">
+    <a class="brand" href="/" data-path="index.html"><strong>CP Ung</strong></a>
 
-    /* Skip-link helt skjult indtil fokus (ingen gul/lilla stribe) */
-    .site-header .skip{
-      position:absolute; left:0; top:0; transform: translateY(-200%);
-      background: var(--focus, #ffbf47); color:#000; padding:.5rem .75rem; z-index:20; transition: transform .2s ease;
-    }
-    .site-header .skip:focus{ transform: translateY(0); }
+    <button id="menu-toggle"
+            class="menu-btn"
+            aria-label="Åbn menu"
+            aria-controls="site-menu"
+            aria-expanded="false">
+      <span aria-hidden="true">☰</span>
+    </button>
 
-    .site-header .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:.75rem; min-height:64px; position:relative;
-    }
-    .site-header .brand a{ white-space:nowrap; text-decoration:none; color:inherit; display:inline-block; font-weight:700; }
-
-    /* Vandret nav (desktop) */
-    .site-header nav ul{ list-style:none; margin:0; padding:0; display:flex; gap:.5rem; flex-wrap:wrap; }
-    .site-header nav a{ text-decoration:none; color:var(--text,#fff); padding:.45rem .75rem; border-radius:8px; display:block; }
-    .site-header nav a:hover, .site-header nav a:focus{ background: var(--panel,#1b1b1b); }
-
-    /* Hamburger (mobil) */
-    .site-header .nav-toggle{ display:none; }
-    .site-header .hamburger{
-      display:none; cursor:pointer; padding:.5rem; border-radius:10px; border:1px solid rgba(255,255,255,.12);
-    }
-    .site-header .hamburger .bar{ display:block; width:26px; height:2px; background:var(--text,#fff); margin:6px 0; border-radius:2px; }
-
-    @media (max-width: 899px){
-      .site-header .hamburger{ display:block; }
-      .site-header nav{ position:absolute; left:0; right:0; top:100%; }
-      .site-header nav ul{
-        display:none; flex-direction:column; gap:0; margin:.35rem 0 0; padding:.25rem;
-        background:var(--panel,#1b1b1b); border-radius:12px; overflow:hidden; box-shadow:0 10px 28px rgba(0,0,0,.45);
-      }
-      .site-header nav li+li{ border-top:1px solid rgba(255,255,255,.08); }
-      .site-header .nav-toggle:checked ~ nav ul{ display:flex; }
-    }
-  </style>
+    <nav id="site-menu" class="site-nav" aria-label="Hovednavigation">
+      <ul>
+        <li><a data-path="index.html#om">Om os</a></li>
+        <li><a data-path="bliv-medlem/">Bliv medlem</a></li>
+        <li><a data-path="index.html#nyhedsbrev">Nyhedsbrev</a></li>
+        <li><a data-path="kontakt/">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
 
   <a class="skip" href="#main">Gå til hovedindhold</a>
+</header>
 
-  <div class="barline">
-    <div class="wrap nav">
-      <div class="brand"><a data-path="index.html">CP Ung</a></div>
+<style>
+  .site-header{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid rgba(255,255,255,.1)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:.75rem}
+  .site-nav ul{display:flex;gap:.5rem;list-style:none;margin:0;padding:0}
+  .site-nav a{text-decoration:none;color:var(--text);padding:.45rem .75rem;border-radius:8px}
+  .site-nav a:hover,.site-nav a:focus{background:var(--panel)}
+  .menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.5rem;line-height:1}
+  .skip{position:absolute;left:0;top:-40px;background:var(--focus);color:#000;padding:.5rem .75rem;z-index:20}
+  .skip:focus{top:0}
+  @media(max-width:900px){
+    .menu-btn{display:inline-block}
+    .site-nav{position:absolute;inset-inline:0;top:64px;background:var(--bg);border-bottom:1px solid rgba(255,255,255,.1);display:none}
+    .site-nav.open{display:block}
+    .site-nav ul{flex-direction:column;padding:.5rem}
+  }
+</style>
 
-      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
-      <label for="nav-toggle" class="hamburger" aria-label="Åbn menu" aria-controls="primary-nav" aria-expanded="false">
-        <span class="bar"></span><span class="bar"></span><span class="bar"></span>
-      </label>
+<script>
+  // Aktiver links med data-path når headeren er indlæst “som fragment”
+  document.querySelectorAll('[data-path]').forEach(a=>{
+    const base = document.querySelector('meta[name="site-base"]')?.content || '';
+    a.setAttribute('href', base + a.getAttribute('data-path'));
+  });
 
-      <nav aria-label="Hovednavigation">
-        <ul id="primary-nav">
-          <li><a data-path="index.html#om">Om os</a></li>
-          <li><a data-path="bliv-medlem/">Bliv medlem</a></li>
-          <li><a data-path="index.html#nyhedsbrev">Nyhedsbrev</a></li>
-          <li><a data-path="kontakt/">Kontakt</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</div>
+  // Tilgængelig hamburger
+  const btn = document.getElementById('menu-toggle');
+  const menu = document.getElementById('site-menu');
+  if (btn && menu) {
+    const toggle = (open) => {
+      menu.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? 'Luk menu' : 'Åbn menu');
+    };
+    btn.addEventListener('click', ()=> toggle(!menu.classList.contains('open')));
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='Escape') toggle(false);
+    });
+  }
+</script>
