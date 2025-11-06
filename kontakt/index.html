@@ -1,12 +1,4 @@
 <!doctype html>
-<!--
-  TEST: Samme billede på alle medlemmer for at se fuldt layout.
-  Vedligehold (senere):
-    - Portrætbilleder ligger i /images/bestyrelse/
-    - Filnavn = navn som slug, fx: nynne-suzet-friis-kristensen.jpg
-    - Kopiér en <article class="member">-blok og ret titel/navn/e-mail + src.
-  Headeren indlæses som fælles fragment fra /partials/header.html
--->
 <html lang="da">
 <head>
   <meta charset="utf-8" />
@@ -32,7 +24,6 @@
     a{color:var(--link)} a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
     .container{max-width:var(--maxw);margin:0 auto;padding:0 calc(var(--space)*0.9)}
 
-    /* Layout */
     main > section{margin-block:calc(var(--space)*1.0)}
     .card{background:var(--panel);padding:calc(var(--space)*1.0);border-radius:var(--radius)}
     .muted{color:var(--muted)}
@@ -70,6 +61,9 @@
     .email a{ text-decoration:underline; overflow-wrap:anywhere; word-break:break-word; }
 
     footer{border-top:1px solid rgba(255,255,255,.1);padding:1rem 0;margin-top:calc(var(--space)*0.9)}
+    @media (prefers-color-scheme: light){
+      footer{border-top:1px solid rgba(0,0,0,.08)}
+    }
   </style>
 </head>
 <body>
@@ -90,12 +84,21 @@
             a.setAttribute('href', base + a.getAttribute('data-path'));
           });
 
+          // Marker aktuelt menupunkt (Kontakt)
+          const current = document.querySelector('a[data-path="kontakt/"]');
+          if(current) current.setAttribute('aria-current','page');
+
           // ARIA for hamburger
-          const t = document.getElementById('nav-toggle');
-          const b = document.querySelector('label[for="nav-toggle"]');
+          const t = document.getElementById('menu-toggle');
+          const b = document.getElementById('site-menu');
           if(t && b){
-            const sync = () => b.setAttribute('aria-expanded', t.checked ? 'true' : 'false');
-            t.addEventListener('change', sync); sync();
+            const toggle = (open) => {
+              b.classList.toggle('open', open);
+              t.setAttribute('aria-expanded', open ? 'true' : 'false');
+              t.setAttribute('aria-label', open ? 'Luk menu' : 'Åbn menu');
+            };
+            t.addEventListener('click', ()=> toggle(!b.classList.contains('open')));
+            document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') toggle(false); });
           }
         });
     })();
@@ -109,10 +112,11 @@
       <p><strong>E-mail:</strong> <a href="mailto:cerebralpareseung@gmail.com">cerebralpareseung@gmail.com</a></p>
     </section>
 
-    <!-- Bestyrelsesmedlemmer – TEST: samme billede på alle -->
+    <!-- Bestyrelsesmedlemmer – DEMOINDHOLD -->
     <section class="card" aria-labelledby="hold-titel">
       <h2 id="hold-titel">Bestyrelsesmedlemmer</h2>
       <div class="grid-people">
+        <!-- Eksempelmedlemmer (billeder peger på samme testfil) -->
         <article class="member" aria-labelledby="m1-navn">
           <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
           <div class="details">
@@ -204,4 +208,3 @@
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
-
