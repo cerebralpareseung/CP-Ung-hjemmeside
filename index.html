@@ -38,6 +38,7 @@
     footer{border-top:1px solid rgba(255,255,255,.1);padding:1rem 0;margin-top:calc(var(--space)*0.9)}
     .html-embed{width:100%;height:70vh;border:0;border-radius:var(--radius);background:#fff}
 
+    /* Divider-styles */
     .soft-divider{border-top:1px solid rgba(255,255,255,.1);margin-top:1rem;padding-top:1rem}
     @media (prefers-color-scheme: light){
       .soft-divider{border-top:1px solid rgba(0,0,0,.08)}
@@ -46,12 +47,15 @@
     /* Sociale ikoner – store */
     .social-buttons{display:flex;gap:1rem;flex-wrap:wrap}
     .social-btn{
-      width:5rem; height:5rem;
+      width:5rem; height:5rem; /* 80px */
       display:inline-flex; align-items:center; justify-content:center;
       text-decoration:none; background:transparent;
     }
-    .social-btn img{display:block;width:3.5rem;height:auto}
-    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .social-btn img{display:block;width:3.5rem;height:auto} /* 56px indeni */
+    .sr-only{
+      position:absolute;width:1px;height:1px;padding:0;margin:-1px;
+      overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+    }
   </style>
 </head>
 <body>
@@ -61,19 +65,29 @@
   <script>
     (function(){
       const base = document.querySelector('meta[name="site-base"]')?.content || '';
+      // Hent header-fragment
       fetch(base + 'partials/header.html')
         .then(r => r.text())
         .then(html => {
           const host = document.getElementById('site-header');
           host.outerHTML = html;
+
+          // Sæt korrekte hrefs ud fra data-path + base
           document.querySelectorAll('[data-path]').forEach(a => {
             a.setAttribute('href', base + a.getAttribute('data-path'));
           });
-          const t = document.getElementById('nav-toggle');
-          const b = document.querySelector('label[for="nav-toggle"]');
-          if(t && b){
-            const sync = () => b.setAttribute('aria-expanded', t.checked ? 'true' : 'false');
-            t.addEventListener('change', sync); sync();
+
+          // Tilgængelig hamburger (matcher din nye header med #menu-toggle og #site-menu)
+          const btn = document.getElementById('menu-toggle');
+          const menu = document.getElementById('site-menu');
+          if (btn && menu) {
+            const toggle = (open) => {
+              menu.classList.toggle('open', open);
+              btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+              btn.setAttribute('aria-label', open ? 'Luk menu' : 'Åbn menu');
+            };
+            btn.addEventListener('click', ()=> toggle(!menu.classList.contains('open')));
+            document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') toggle(false); });
           }
         });
     })();
@@ -107,9 +121,19 @@
     <!-- Række 2: Nyhedsbrev -->
     <section id="nyhedsbrev" class="card" aria-labelledby="nyhedsbrev-titel">
       <h2 id="nyhedsbrev-titel">Nyhedsbrev</h2>
-      <iframe class="html-embed" src="Nyhedsbrev.html" title="Seneste nyhedsbrev"></iframe>
+
+      <!-- Visuelt embed – skjult for skærmlæsere pga. e-mail-HTML -->
+      <iframe class="html-embed"
+              src="Nyhedsbrev.html"
+              title="Seneste nyhedsbrev (visuel forhåndsvisning)"
+              aria-hidden="true"></iframe>
+
+      <p class="sr-only" id="nyhedsbrev-beskrivelse">
+        Denne forhåndsvisning er kun visuel. Brug linket herunder til en fuldt tilgængelig version af nyhedsbrevet.
+      </p>
+
       <p style="margin-top:.75rem">
-        <a href="Nyhedsbrev.html" target="_blank" rel="noopener">Åbn nyhedsbrevet i nyt vindue</a>
+        <a href="Nyhedsbrev.html" target="_blank" rel="noopener">Åbn tilgængelig version af nyhedsbrevet i nyt vindue</a>
       </p>
 
       <!-- Tilmelding -->
@@ -166,4 +190,3 @@
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
-
