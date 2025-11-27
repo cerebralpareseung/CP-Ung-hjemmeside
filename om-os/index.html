@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CP Ung – Om os</title>
+  <meta name="description" content="Om CP Ung: hvem vi er, hvad vi laver og hvordan vi arbejder." />
+  <style>
+    :root{
+      --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
+      --radius:12px; --maxw:84rem; --space:clamp(0.9rem, 1.6vw, 1.3rem);
+    }
+    @media (prefers-color-scheme: light){
+      :root{--bg:#fff; --text:#111; --muted:#333; --panel:#f4f6f8; --link:#0969da; --accent:#007a5a; --focus:#9c2cf3}
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;background:var(--bg);color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;
+      line-height:1.6;font-size: clamp(17px, 1.25vw, 19px);
+    }
+    a{color:var(--link)} a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 calc(var(--space)*0.9)}
+
+    main > section{margin-block:calc(var(--space)*1.0)}
+    .card{background:var(--panel);padding:calc(var(--space)*1.0);border-radius:var(--radius)}
+    .muted{color:var(--muted)}
+    h1{margin:.2rem 0;font-size:clamp(2rem,4.2vw,3rem);line-height:1.2}
+    h2{font-size:clamp(1.25rem,2.1vw,1.65rem);line-height:1.3;margin-top:.8rem}
+
+    /* Blød divider til vedtægter-afsnittet */
+    .soft-divider{border-top:1px solid rgba(255,255,255,.1);margin-top:1rem;padding-top:1rem}
+    @media (prefers-color-scheme: light){
+      .soft-divider{border-top:1px solid rgba(0,0,0,.08)}
+    }
+
+    footer{border-top:1px solid rgba(255,255,255,.1);padding:1rem 0;margin-top:calc(var(--space)*0.9)}
+    @media (prefers-color-scheme: light){
+      footer{border-top:1px solid rgba(0,0,0,.08)}
+    }
+  </style>
+</head>
+<body>
+  <!-- [Fælles header] -->
+  <meta name="site-base" content="../">
+  <div id="site-header"></div>
+  <script>
+    (function(){
+      const base = document.querySelector('meta[name="site-base"]')?.content || '../';
+      fetch(base + 'partials/header.html')
+        .then(r => r.text())
+        .then(html => {
+          const host = document.getElementById('site-header');
+          host.outerHTML = html;
+
+          // Sæt korrekte hrefs ud fra data-path + base
+          document.querySelectorAll('[data-path]').forEach(a => {
+            a.setAttribute('href', base + a.getAttribute('data-path'));
+          });
+
+          // Når headeren senere er opdateret til at pege på om-os/,
+          // kan vi evt. markere 'aria-current' her. (Ingen midlertidige hacks nu.)
+          const omLink = document.querySelector('a[href$="om-os/"]');
+          if (omLink) omLink.setAttribute('aria-current','page');
+
+          // Tilgængelig hamburger som på de øvrige sider
+          const btn = document.getElementById('menu-toggle');
+          const menu = document.getElementById('site-menu');
+          if (btn && menu) {
+            const toggle = (open) => {
+              menu.classList.toggle('open', open);
+              btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+              btn.setAttribute('aria-label', open ? 'Luk menu' : 'Åbn menu');
+            };
+            btn.addEventListener('click', ()=> toggle(!menu.classList.contains('open')));
+            document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') toggle(false); });
+          }
+        });
+    })();
+  </script>
+
+  <main id="main" class="container" role="main">
+    <section class="card" aria-labelledby="om-titel">
+      <h1 id="om-titel">Om os</h1>
+      <p class="muted">Pladsholder: Kort intro til CP Ung – hvem vi er, hvad vi laver, og hvorfor fællesskabet er vigtigt. Udskift teksten her med jeres egen.</p>
+      <p>Pladsholder: CP Ung er et fællesskab for unge med cerebral parese. Vi laver sociale arrangementer, videndeling og netværk på tværs af landet. Vi arbejder for, at unge med CP kan mødes i øjenhøjde – både online og fysisk.</p>
+      <p>Pladsholder: Vores aktiviteter er frivilligdrevne. Har du idéer, lyst til at hjælpe eller spørgsmål, så skriv til os på <a href="mailto:cerebralpareseung@gmail.com">cerebralpareseung@gmail.com</a>.</p>
+
+      <div class="soft-divider" aria-labelledby="vedtaegter-titel">
+        <h2 id="vedtaegter-titel">Foreningens vedtægter</h2>
+        <p>Du kan læse de gældende vedtægter her:
+          <a href="../docs/foreningens-vedtaegter.pdf" target="_blank" rel="noopener">Åbn vedtægter (PDF)</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p class="muted">© <span id="y"></span> CP Ung</p>
+  </footer>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+</body>
+</html>
