@@ -15,17 +15,18 @@
         <li><a data-path="om-os/">Om os</a></li>
         <li><a data-path="bliv-medlem/">Bliv medlem</a></li>
         <li><a data-path="index.html#nyhedsbrev">Nyhedsbrev</a></li>
+        <li><a data-path="lige-nu/">Lige nu</a></li>
         <li><a data-path="kontakt/">Kontakt</a></li>
       </ul>
     </nav>
   </div>
 
-  <!-- Skip link: fuldt tilgængeligt, men helt skjult indtil fokus -->
+  <!-- Skip link: skjult indtil fokus -->
   <a class="skip" href="#main">Gå til hovedindhold</a>
 </header>
 
 <style>
-  /* Header layout (bruger farve-variabler fra siden) */
+  /* Grundlayout (bruger farve-variabler defineret på siderne) */
   .site-header{
     position:sticky; top:0; z-index:10;
     background:var(--bg);
@@ -34,7 +35,7 @@
   @media (prefers-color-scheme: light){
     .site-header{ border-bottom:1px solid rgba(0,0,0,.08); }
   }
-
+  .container{max-width:84rem;margin:0 auto;padding:0 clamp(0.9rem, 1.6vw, 1.3rem);}
   .nav{display:flex;align-items:center;justify-content:space-between;height:64px;gap:.75rem}
   .brand{color:var(--text);text-decoration:none}
 
@@ -44,7 +45,7 @@
 
   .menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.5rem;line-height:1;cursor:pointer}
 
-  /* Mobil-menu */
+  /* Mobilmenu */
   @media(max-width:900px){
     .menu-btn{display:inline-block}
     .site-nav{
@@ -60,7 +61,7 @@
     .site-nav ul{flex-direction:column;padding:.5rem}
   }
 
-  /* Skip link – helt væk indtil fokus (fjerner farvet stribe) */
+  /* Skip link – helt væk indtil fokus (ingen farvet stribe) */
   .skip{
     position:absolute;
     left:-9999px; top:auto;
