@@ -1,0 +1,62 @@
+name: Lige nu (Slack → JSON)
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"    # kør hvert 15. minut
+  workflow_dispatch:           # mulighed for manuel kørsel fra Actions-tab
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Hent seneste besked fra Slack
+        id: build
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ secrets.SLACK_CHANNEL_ID }}
+        run: |
+          mkdir -p data
+          curl -sS -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+            "https://slack.com/api/conversations.history?channel=$SLACK_CHANNEL_ID&limit=1" \
+            > /tmp/slack.json
+
+          ok=$(jq -r '.ok' /tmp/slack.json)
+          if [ "$ok" != "true" ]; then
+            echo "Slack API fejl:"; cat /tmp/slack.json; exit 1
+          fi
+
+          text=$(jq -r '.messages[0].text // ""' /tmp/slack.json)
+          ts=$(jq -r '.messages[0].ts // ""' /tmp/slack.json)
+          if [ -z "$text" ] || [ -z "$ts" ]; then
+            echo "Ingen besked i kanalen endnu"; echo "changed=false" >> $GITHUB_OUTPUT; exit 0
+          fi
+
+          cat > /tmp/ligenu.json <<EOF
+          {
+            "text": $(jq -Rn --arg s "$text" '$s'),
+            "ts": "$ts"
+          }
+          EOF
+
+          if [ -f data/lige-nu.json ] && diff -q /tmp/ligenu.json data/lige-nu.json >/dev/null 2>&1; then
+            echo "Uændret"; echo "changed=false" >> $GITHUB_OUTPUT; exit 0
+          fi
+
+          mv /tmp/ligenu.json data/lige-nu.json
+          echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit ændringer
+        if: steps.build.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/lige-nu.json
+          git commit -m "Opdater Lige nu"
+          git push
