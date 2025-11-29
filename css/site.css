@@ -1,0 +1,98 @@
+/* ===== CP Ung – Fælles stylesheet =====
+   Farver/typografi for hele sitet (light/dark).
+   Ønsker: Light bg #E6E4DE, hvide kort, sort brødtekst.
+            Dark bg mørk neutral, mørke kort, hvid brødtekst.
+            Overskrifter + links = #1C00FF.
+*/
+
+/* --- Farver & variabler --- */
+:root{
+  /* Dark som default i variablerne */
+  --bg:#0f0f12;
+  --text:#ffffff;
+  --muted:#cfcfcf;
+  --panel:#1b1b1f;
+  --panel-border:rgba(255,255,255,.10);
+
+  --link:#1C00FF;      /* links i begge temaer */
+  --heading:#1C00FF;   /* h1/h2 i begge temaer */
+  --focus:#1C00FF;
+
+  --radius:12px;
+  --maxw:84rem;
+  --space:clamp(0.9rem, 1.6vw, 1.3rem);
+}
+@media (prefers-color-scheme: light){
+  :root{
+    --bg:#E6E4DE;      /* lys baggrund */
+    --text:#000000;    /* sort tekst */
+    --muted:#333333;
+    --panel:#ffffff;   /* hvide kort */
+    --panel-border:rgba(0,0,0,.06);
+  }
+}
+
+/* --- Grundtypografi & links --- */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bg);color:var(--text);
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;
+  line-height:1.65;font-size: clamp(17px, 1.25vw, 19px);
+  text-rendering:optimizeLegibility;
+}
+a{color:var(--link)}
+a:focus-visible,button:focus-visible{
+  outline:3px solid var(--focus);outline-offset:2px;border-radius:8px
+}
+.muted{color:var(--muted)}
+img{max-width:100%;height:auto;border-radius:10px}
+
+/* --- Layout helpers --- */
+.container{max-width:var(--maxw);margin:0 auto;padding:0 calc(var(--space)*0.9)}
+main > section{margin-block:calc(var(--space)*1.0)}
+main > section:last-of-type{margin-bottom:calc(var(--space)*1.4)}
+
+/* --- Hero --- */
+.hero{padding:calc(var(--space)*0.6) 0}
+
+/* --- Kort / paneler --- */
+.card{
+  background:var(--panel);
+  padding:calc(var(--space)*1.0);
+  border-radius:var(--radius);
+  border:1px solid var(--panel-border);
+  box-shadow:0 1px 0 rgba(0,0,0,.08);
+}
+
+/* --- Grid --- */
+.grid{display:grid;gap:calc(var(--space)*0.9);grid-template-columns:1fr}
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+
+/* --- Overskrifter --- */
+h1{
+  margin:.15rem 0;font-size:clamp(2.1rem,4.6vw,3.25rem);line-height:1.15;color:var(--heading)
+}
+h2{
+  font-size:clamp(1.3rem,2.2vw,1.7rem);
+  line-height:1.25;margin-top:.1rem;color:var(--heading)
+}
+
+/* --- Iframe (nyhedsbrev) --- */
+.html-embed{
+  width:100%;height:70vh;border:0;border-radius:var(--radius);
+  background:#fff; /* bevares hvid for læsbarhed */
+}
+
+/* --- Sociale knapper --- */
+.social-buttons{display:flex;gap:1rem;flex-wrap:wrap}
+.social-btn{
+  width:5.25rem;height:5.25rem;
+  display:inline-flex;align-items:center;justify-content:center;
+  text-decoration:none;background:transparent;border-radius:12px;
+  border:1px solid var(--panel-border);
+}
+.social-btn img{display:block;width:3.6rem;height:auto}
+
+/* --- Footer --- */
+footer{border-top:1px solid var(--panel-border);padding:1rem 0;margin-top:calc(var(--space)*0.9)}
