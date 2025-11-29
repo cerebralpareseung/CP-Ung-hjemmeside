@@ -5,58 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CP Ung</title>
   <meta name="description" content="CP Ung: Hvad vi laver, nyhedsbrev og kontakt." />
-  <style>
-    :root{
-      --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
-      --radius:12px; --maxw:84rem; --space:clamp(0.9rem, 1.6vw, 1.3rem);
-    }
-    @media (prefers-color-scheme: light){
-      :root{--bg:#fff; --text:#111; --muted:#333; --panel:#f4f6f8; --link:#0969da; --accent:#007a5a; --focus:#9c2cf3}
-    }
 
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;background:var(--bg);color:var(--text);
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;
-      line-height:1.6;font-size: clamp(17px, 1.25vw, 19px);
-    }
-    a{color:var(--link)} a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+  <!-- Fælles styles -->
+  <link rel="stylesheet" href="/css/site.css">
 
-    .container{max-width:var(--maxw);margin:0 auto;padding:0 calc(var(--space)*0.9)}
-
-    .hero{padding:calc(var(--space)*0.6) 0}
-    .hero h1{margin:.15rem 0;font-size:clamp(2rem,4.2vw,3rem);line-height:1.2}
-    .muted{color:var(--muted)}
-    .grid{display:grid;gap:calc(var(--space)*0.9);grid-template-columns:1fr}
-    @media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
-    .card{background:var(--panel);padding:calc(var(--space)*1.0);border-radius:var(--radius)}
-    main > section{margin-block:calc(var(--space)*1.0)}
-    main > section:last-of-type{margin-bottom:calc(var(--space)*1.4)}
-    h2{font-size:clamp(1.25rem,2.1vw,1.65rem);line-height:1.3;margin-top:.1rem}
-    img{max-width:100%;height:auto;border-radius:10px}
-    footer{border-top:1px solid rgba(255,255,255,.1);padding:1rem 0;margin-top:calc(var(--space)*0.9)}
-    .html-embed{width:100%;height:70vh;border:0;border-radius:var(--radius);background:#fff}
-
-    /* Divider-styles */
-    .soft-divider{border-top:1px solid rgba(255,255,255,.1);margin-top:1rem;padding-top:1rem}
-    @media (prefers-color-scheme: light){
-      .soft-divider{border-top:1px solid rgba(0,0,0,.08)}
-    }
-
-    /* Sociale ikoner – store */
-    .social-buttons{display:flex;gap:1rem;flex-wrap:wrap}
-    .social-btn{
-      width:5rem; height:5rem; /* 80px */
-      display:inline-flex; align-items:center; justify-content:center;
-      text-decoration:none; background:transparent;
-    }
-    .social-btn img{display:block;width:3.5rem;height:auto} /* 56px indeni */
-    .sr-only{
-      position:absolute;width:1px;height:1px;padding:0;margin:-1px;
-      overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
-    }
-  </style>
+  <!-- Favicon i roden -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
 </head>
 <body>
   <!-- [Fælles header] -->
@@ -65,19 +19,18 @@
   <script>
     (function(){
       const base = document.querySelector('meta[name="site-base"]')?.content || '';
-      // Hent header-fragment
       fetch(base + 'partials/header.html')
         .then(r => r.text())
         .then(html => {
           const host = document.getElementById('site-header');
           host.outerHTML = html;
 
-          // Sæt korrekte hrefs ud fra data-path + base
+          // Sæt rigtige hrefs ud fra data-path
           document.querySelectorAll('[data-path]').forEach(a => {
             a.setAttribute('href', base + a.getAttribute('data-path'));
           });
 
-          // Tilgængelig hamburger (matcher din nye header med #menu-toggle og #site-menu)
+          // Tilgængelig hamburger
           const btn = document.getElementById('menu-toggle');
           const menu = document.getElementById('site-menu');
           if (btn && menu) {
@@ -110,6 +63,7 @@
           <li>Nationale træf</li>
         </ul>
       </article>
+
       <article class="card" aria-labelledby="billeder-titel">
         <h2 id="billeder-titel">Billeder</h2>
         <p class="muted">Erstat med rigtige billeder. (Denne tekst er kun en pladsholder.)</p>
@@ -121,23 +75,14 @@
     <!-- Række 2: Nyhedsbrev -->
     <section id="nyhedsbrev" class="card" aria-labelledby="nyhedsbrev-titel">
       <h2 id="nyhedsbrev-titel">Nyhedsbrev</h2>
-
-      <!-- Visuelt embed – skjult for skærmlæsere pga. e-mail-HTML -->
-      <iframe class="html-embed"
-              src="Nyhedsbrev.html"
-              title="Seneste nyhedsbrev (visuel forhåndsvisning)"
-              aria-hidden="true"></iframe>
-
-      <p class="sr-only" id="nyhedsbrev-beskrivelse">
-        Denne forhåndsvisning er kun visuel. Brug linket herunder til en fuldt tilgængelig version af nyhedsbrevet.
-      </p>
-
+      <iframe class="html-embed" src="Nyhedsbrev.html" title="Seneste nyhedsbrev (visuel forhåndsvisning)" aria-hidden="true"></iframe>
+      <p class="sr-only" id="nyhedsbrev-beskrivelse">Denne forhåndsvisning er kun visuel. Brug linket herunder til en fuldt tilgængelig version af nyhedsbrevet.</p>
       <p style="margin-top:.75rem">
         <a href="Nyhedsbrev.html" target="_blank" rel="noopener">Åbn tilgængelig version af nyhedsbrevet i nyt vindue</a>
       </p>
 
       <!-- Tilmelding -->
-      <div class="soft-divider" aria-label="Tilmelding til nyhedsbrev">
+      <div class="soft-divider" aria-label="Tilmelding til nyhedsbrev" style="border-top:1px solid var(--panel-border);margin-top:1rem;padding-top:1rem">
         <p style="margin:.1rem 0 .4rem 0;">Er du ikke allerede tilmeldt?</p>
         <p style="margin:0">
           <a href="https://1c825eab.sibforms.com/serve/MUIFAHdljU8FdJKOxjPIG053P6QzTHpn4cUenPHSdkG0oU9tI2qUl8pyytDU5oQX9mW1SGp_knrid9sPpL_4KbkAu_CvQtMOW6c6ta8zKiM_ozZorVwTCiOGEGDaJrMqTnPGFVqhkMekz1eWE7V3-t82p_khlGxy8PUIT-769FbMl5XbXmfC0uPHILaaD32lgTpJxE6zosRFyH5y"
@@ -152,16 +97,14 @@
         <h2 id="social-titel">Følg os</h2>
         <div class="social-buttons" aria-label="Officielle profiler">
           <a class="social-btn" href="https://www.facebook.com/ungmedcp/" aria-label="Følg os på Facebook">
-            <span class="sr-only">Facebook-side</span>
             <img src="images/social/Facebook_Logo_Primary.png" alt="" width="80" height="80" loading="lazy" />
           </a>
           <a class="social-btn" href="https://www.instagram.com/ungmedcp/" aria-label="Følg os på Instagram">
-            <span class="sr-only">Instagram-profil</span>
             <img src="images/social/Instagram_Glyph_Gradient.png" alt="" width="80" height="80" loading="lazy" />
           </a>
         </div>
 
-        <div class="soft-divider">
+        <div class="soft-divider" style="border-top:1px solid var(--panel-border);margin-top:1rem;padding-top:1rem">
           <p class="muted" style="margin-bottom:.45rem;">Vi har også en Facebook-gruppe kun for unge med CP:</p>
           <p style="margin:0">
             <a href="https://www.facebook.com/groups/1085576868477723" target="_blank" rel="noopener">
