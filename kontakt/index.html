@@ -3,28 +3,69 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>CP Ung – Kontakt</title>
-  <meta name="description" content="Kontakt CP Ung og se bestyrelsens medlemmer." />
-
-  <!-- Fælles styles (RELATIV sti) -->
   <link rel="stylesheet" href="../css/site.css">
-
-  <!-- Favicon i roden (RELATIV sti) -->
-  <link rel="icon" href="../favicon.ico" sizes="any">
-
-  <!-- Lidt side-specifik stil til medlemskort (layout only) -->
+<link rel="icon" href="../favicon.ico" sizes="any">
+  <title>CP Ung – Kontakt</title>
+  <meta name="description" content="Kontakt CP Ung: fælles mail og kontaktinfo på bestyrelsesmedlemmer." />
   <style>
-    .team{display:grid;gap:var(--space);grid-template-columns:1fr}
-    @media(min-width:900px){.team{grid-template-columns:1fr 1fr}}
-    .member-card img{
-      width:100%;
-      aspect-ratio:3/4;           /* spiller pænt med jeres portrætter */
-      object-fit:cover;
-      border-radius:10px;
-      display:block;
+    :root{
+      --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --accent:#66e0a3; --focus:#ffbf47;
+      --radius:12px; --maxw:84rem; --space:clamp(0.9rem, 1.6vw, 1.3rem);
     }
-    .member-meta h3{margin:.4rem 0 0 0}
-    .member-meta p{margin:.15rem 0}
+    @media (prefers-color-scheme: light){
+      :root{--bg:#fff; --text:#111; --muted:#333; --panel:#f4f6f8; --link:#0969da; --accent:#007a5a; --focus:#9c2cf3}
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;background:var(--bg);color:var(--text);
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;
+      line-height:1.6;font-size: clamp(17px, 1.25vw, 19px);
+    }
+    a{color:var(--link)} a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 calc(var(--space)*0.9)}
+
+    main > section{margin-block:calc(var(--space)*1.0)}
+    .card{background:var(--panel);padding:calc(var(--space)*1.0);border-radius:var(--radius)}
+    .muted{color:var(--muted)}
+    h1{margin:.2rem 0;font-size:clamp(1.9rem,3.8vw,2.6rem);line-height:1.2}
+    h2{font-size: clamp(1.25rem, 2.1vw, 1.65rem); line-height:1.3; margin-top:0.1rem}
+
+    /* Grid: 1 kolonne mobil, 2 kolonner fra ~laptop */
+    .grid-people{display:grid;gap:calc(var(--space)*1.0);grid-template-columns:1fr}
+    @media(min-width:900px){.grid-people{grid-template-columns:1fr 1fr}}
+
+    /* Medlemskort */
+    .member{
+      display:flex;flex-direction:column;gap:1rem;
+      background:rgba(255,255,255,0.03);padding:calc(var(--space)*1.0);border-radius:12px
+    }
+    @media(min-width:900px){
+      .member{flex-direction:row;align-items:stretch}
+      .details{display:flex;flex-direction:column;justify-content:center}
+    }
+
+    /* Portræt: bevar naturligt aspect ratio */
+    .photo{
+      width:clamp(180px, 18vw, 260px);
+      height:auto;
+      max-height:420px;
+      border-radius:14px;
+      object-fit:contain;
+      background:#222;
+      flex:0 0 auto;
+    }
+
+    .details{flex:1 1 auto}
+    .role{font-weight:700;letter-spacing:.2px}
+    .name{font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.25;margin:.1rem 0}
+    .email a{ text-decoration:underline; overflow-wrap:anywhere; word-break:break-word; }
+
+    footer{border-top:1px solid rgba(255,255,255,.1);padding:1rem 0;margin-top:calc(var(--space)*0.9)}
+    @media (prefers-color-scheme: light){
+      footer{border-top:1px solid rgba(0,0,0,.08)}
+    }
   </style>
 </head>
 <body>
@@ -33,28 +74,32 @@
   <div id="site-header"></div>
   <script>
     (function(){
-      const base = document.querySelector('meta[name="site-base"]')?.content || '';
+      const base = document.querySelector('meta[name="site-base"]')?.content || '../';
       fetch(base + 'partials/header.html')
         .then(r => r.text())
         .then(html => {
           const host = document.getElementById('site-header');
           host.outerHTML = html;
 
-          // Sæt rigtige hrefs ud fra data-path i header-partialen
+          // Sæt korrekte hrefs ud fra data-path + base
           document.querySelectorAll('[data-path]').forEach(a => {
             a.setAttribute('href', base + a.getAttribute('data-path'));
           });
 
-          // Tilgængelig hamburger
-          const btn = document.getElementById('menu-toggle');
-          const menu = document.getElementById('site-menu');
-          if (btn && menu) {
+          // Marker aktuelt menupunkt (Kontakt)
+          const current = document.querySelector('a[data-path="kontakt/"]');
+          if(current) current.setAttribute('aria-current','page');
+
+          // ARIA for hamburger
+          const t = document.getElementById('menu-toggle');
+          const b = document.getElementById('site-menu');
+          if(t && b){
             const toggle = (open) => {
-              menu.classList.toggle('open', open);
-              btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-              btn.setAttribute('aria-label', open ? 'Luk menu' : 'Åbn menu');
+              b.classList.toggle('open', open);
+              t.setAttribute('aria-expanded', open ? 'true' : 'false');
+              t.setAttribute('aria-label', open ? 'Luk menu' : 'Åbn menu');
             };
-            btn.addEventListener('click', ()=> toggle(!menu.classList.contains('open')));
+            t.addEventListener('click', ()=> toggle(!b.classList.contains('open')));
             document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') toggle(false); });
           }
         });
@@ -62,105 +107,98 @@
   </script>
 
   <main id="main" class="container" role="main">
-    <section class="hero" aria-labelledby="kontakt-titel">
+    <!-- Fælles kontakt -->
+    <section class="card" aria-labelledby="kontakt-titel">
       <h1 id="kontakt-titel">Kontakt</h1>
-      <address>
-        <p><strong>CP Ung</strong></p>
-        <p>E-mail: <a href="mailto:cerebralpareseung@gmail.com">cerebralpareseung@gmail.com</a></p>
-        <p>Adresse: Blekinge Blvd. 2, 2630 Taastrup</p>
-      </address>
+      <p>Du kan altid skrive til vores fælles mail:</p>
+      <p><strong>E-mail:</strong> <a href="mailto:cerebralpareseung@gmail.com">cerebralpareseung@gmail.com</a></p>
     </section>
 
-    <section class="card" aria-labelledby="bestyrelse-titel">
-      <h2 id="bestyrelse-titel">Bestyrelsesmedlemmer</h2>
-
-      <!-- 2 kolonner på desktop, 1 på mobil -->
-      <div class="team">
-        <!-- Eksempel-kort 1 -->
-        <article class="member-card card" aria-labelledby="m1-titel">
-          <img src="../images/team/rasmus-duus-asmussen.jpg" alt="Portræt af medlem" loading="lazy">
-          <div class="member-meta">
-            <h3 id="m1-titel">Titel • Navn Navnesen</h3>
-            <p><a href="mailto:navn1@example.com">navn1@example.com</a></p>
+    <!-- Bestyrelsesmedlemmer – DEMOINDHOLD -->
+    <section class="card" aria-labelledby="hold-titel">
+      <h2 id="hold-titel">Bestyrelsesmedlemmer</h2>
+      <div class="grid-people">
+        <!-- Eksempelmedlemmer (billeder peger på samme testfil) -->
+        <article class="member" aria-labelledby="m1-navn">
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
+          <div class="details">
+            <div class="role">Næstformand (HB-medlem)</div>
+            <div id="m1-navn" class="name">Nynne Suzet Friis Kristensen</div>
+            <div class="email"><a href="mailto:rasmus.duus.asmussen@gmail.com">rasmus.duus.asmussen@gmail.com</a></div>
           </div>
         </article>
 
-        <!-- Eksempel-kort 2 -->
-        <article class="member-card card" aria-labelledby="m2-titel">
-          <img src="../images/team/rasmus-duus-asmussen.jpg" alt="Portræt af medlem" loading="lazy">
-          <div class="member-meta">
-            <h3 id="m2-titel">Titel • Navn Navnesen</h3>
-            <p><a href="mailto:navn2@example.com">navn2@example.com</a></p>
+        <article class="member" aria-labelledby="m2-navn">
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
+          <div class="details">
+            <div class="role">Formand</div>
+            <div id="m2-navn" class="name">Medlem 2</div>
+            <div class="email"><a href="mailto:medlem2@cpung.dk">medlem2@cpung.dk</a></div>
           </div>
         </article>
 
-        <!-- Eksempel-kort 3 -->
-        <article class="member-card card" aria-labelledby="m3-titel">
-          <img src="../images/team/rasmus-duus-asmussen.jpg" alt="Portræt af medlem" loading="lazy">
-          <div class="member-meta">
-            <h3 id="m3-titel">Titel • Navn Navnesen</h3>
-            <p><a href="mailto:navn3@example.com">navn3@example.com</a></p>
+        <article class="member" aria-labelledby="m3-navn">
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
+          <div class="details">
+            <div class="role">Bestyrelsesmedlem</div>
+            <div id="m3-navn" class="name">Medlem 3</div>
+            <div class="email"><a href="mailto:medlem3@cpung.dk">medlem3@cpung.dk</a></div>
           </div>
         </article>
 
-        <!-- Eksempel-kort 4 -->
-        <article class="member-card card" aria-labelledby="m4-titel">
-          <img src="../images/team/rasmus-duus-asmussen.jpg" alt="Portræt af medlem" loading="lazy">
-          <div class="member-meta">
-            <h3 id="m4-titel">Titel • Navn Navnesen</h3>
-            <p><a href="mailto:navn4@example.com">navn4@example.com</a></p>
+        <article class="member" aria-labelledby="m4-navn">
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
+          <div class="details">
+            <div class="role">Bestyrelsesmedlem</div>
+            <div id="m4-navn" class="name">Medlem 4</div>
+            <div class="email"><a href="mailto:medlem4@cpung.dk">medlem4@cpung.dk</a></div>
           </div>
         </article>
 
-        <!-- Eksempel-kort 5 -->
-        <article class="member-card card" aria-labelledby="m5-titel">
-          <img src="../images/team/rasmus-duus-asmussen.jpg" alt="Portræt af medlem" loading="lazy">
-          <div class="member-meta">
-            <h3 id="m5-titel">Titel • Navn Navnesen</h3>
-            <p><a href="mailto:navn5@example.com">navn5@example.com</a></p>
+        <article class="member" aria-labelledby="m5-navn">
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
+          <div class="details">
+            <div class="role">Bestyrelsesmedlem</div>
+            <div id="m5-navn" class="name">Medlem 5</div>
+            <div class="email"><a href="mailto:medlem5@cpung.dk">medlem5@cpung.dk</a></div>
           </div>
         </article>
 
-        <!-- Eksempel-kort 6 -->
-        <article class="member-card card" aria-labelledby="m6-titel">
-          <img src="../images/team/rasmus-duus-asmussen.jpg" alt="Portræt af medlem" loading="lazy">
-          <div class="member-meta">
-            <h3 id="m6-titel">Titel • Navn Navnesen</h3>
-            <p><a href="mailto:navn6@example.com">navn6@example.com</a></p>
+        <article class="member" aria-labelledby="m6-navn">
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
+          <div class="details">
+            <div class="role">Bestyrelsesmedlem</div>
+            <div id="m6-navn" class="name">Medlem 6</div>
+            <div class="email"><a href="mailto:medlem6@cpung.dk">medlem6@cpung.dk</a></div>
           </div>
         </article>
 
-        <!-- Eksempel-kort 7 -->
-        <article class="member-card card" aria-labelledby="m7-titel">
-          <img src="../images/team/rasmus-duus-asmussen.jpg" alt="Portræt af medlem" loading="lazy">
-          <div class="member-meta">
-            <h3 id="m7-titel">Titel • Navn Navnesen</h3>
-            <p><a href="mailto:navn7@example.com">navn7@example.com</a></p>
+        <article class="member" aria-labelledby="m7-navn">
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
+          <div class="details">
+            <div class="role">Bestyrelsesmedlem</div>
+            <div id="m7-navn" class="name">Medlem 7</div>
+            <div class="email"><a href="mailto:medlem7@cpung.dk">medlem7@cpung.dk</a></div>
           </div>
         </article>
 
-        <!-- Eksempel-kort 8 -->
-        <article class="member-card card" aria-labelledby="m8-titel">
-          <img src="../images/team/rasmus-duus-asmussen.jpg" alt="Portræt af medlem" loading="lazy">
-          <div class="member-meta">
-            <h3 id="m8-titel">Titel • Navn Navnesen</h3>
-            <p><a href="mailto:navn8@example.com">navn8@example.com</a></p>
+        <article class="member" aria-labelledby="m8-navn">
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
+          <div class="details">
+            <div class="role">Bestyrelsesmedlem</div>
+            <div id="m8-navn" class="name">Medlem 8</div>
+            <div class="email"><a href="mailto:medlem8@cpung.dk">medlem8@cpung.dk</a></div>
           </div>
         </article>
 
-        <!-- Eksempel-kort 9 -->
-        <article class="member-card card" aria-labelledby="m9-titel">
-          <img src="../images/team/rasmus-duus-asmussen.jpg" alt="Portræt af medlem" loading="lazy">
-          <div class="member-meta">
-            <h3 id="m9-titel">Titel • Navn Navnesen</h3>
-            <p><a href="mailto:navn9@example.com">navn9@example.com</a></p>
+        <article class="member" aria-labelledby="m9-navn">
+          <img class="photo" src="../images/bestyrelse/rasmus-duus-asmussen.jpg" alt="" />
+          <div class="details">
+            <div class="role">Supleant</div>
+            <div id="m9-navn" class="name">Rasmus Duus Asmussen</div>
+            <div class="email"><a href="mailto:rasmus-duus.asmussen@gmail.com">rasmus-duus.asmussen@gmail.com</a></div>
           </div>
         </article>
-      </div>
-
-      <!-- Link til fælles postkasse nederst -->
-      <div class="soft-divider" style="border-top:1px solid var(--panel-border);margin-top:1rem;padding-top:1rem">
-        <p>Generelle henvendelser: <a href="mailto:cerebralpareseung@gmail.com">cerebralpareseung@gmail.com</a></p>
       </div>
     </section>
   </main>
@@ -168,6 +206,7 @@
   <footer class="container">
     <p class="muted">© <span id="y"></span> CP Ung</p>
   </footer>
+
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
 </body>
 </html>
