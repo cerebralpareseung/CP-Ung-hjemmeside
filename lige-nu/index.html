@@ -4,63 +4,54 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CP Ung – Lige nu</title>
-  <meta name="description" content="Seneste beskeder og hurtige opdateringer fra CP Ung." />
-
-  <!-- Fælles styles (RELATIV sti) -->
-  <link rel="stylesheet" href="../css/site.css">
-
-  <!-- Favicon i roden (RELATIV sti) -->
-  <link rel="icon" href="../favicon.ico" sizes="any">
+  <meta name="description" content="Seneste besked fra CP Ung hentes automatisk fra Slack." />
+  <style>
+    :root{ --bg:#111; --text:#fff; --muted:#cfcfcf; --panel:#1b1b1b; --link:#8ad1ff; --focus:#ffbf47;
+           --radius:12px; --maxw:84rem; --space:clamp(0.9rem,1.6vw,1.3rem); }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#fff; --text:#111; --muted:#333; --panel:#f4f6f8; --link:#0969da; --focus:#9c2cf3; }
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--text);
+         font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif;line-height:1.6}
+    a{color:var(--link)} a:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+    .container{max-width:var(--maxw);margin:0 auto;padding:0 calc(var(--space)*0.9)}
+    main > section{margin-block:calc(var(--space)*1.0)}
+    .card{background:var(--panel);padding:calc(var(--space)*1.0);border-radius:var(--radius)}
+    .muted{color:var(--muted)}
+    h1{margin:.2rem 0;font-size:clamp(2rem,4.2vw,3rem);line-height:1.2}
+    .msg{white-space:pre-wrap}
+    footer{border-top:1px solid rgba(255,255,255,.1);padding:1rem 0;margin-top:calc(var(--space)*0.9)}
+    @media (prefers-color-scheme: light){ footer{border-top:1px solid rgba(0,0,0,.08)} }
+  </style>
 </head>
 <body>
-  <!-- [Fælles header] -->
+  <!-- Fælles header -->
   <meta name="site-base" content="../">
   <div id="site-header"></div>
   <script>
     (function(){
-      const base = document.querySelector('meta[name="site-base"]')?.content || '';
-      fetch(base + 'partials/header.html')
-        .then(r => r.text())
-        .then(html => {
-          const host = document.getElementById('site-header');
-          host.outerHTML = html;
-
-          // Sæt rigtige hrefs ud fra data-path i header-partialen
-          document.querySelectorAll('[data-path]').forEach(a => {
-            a.setAttribute('href', base + a.getAttribute('data-path'));
-          });
-
-          // Tilgængelig hamburger
-          const btn = document.getElementById('menu-toggle');
-          const menu = document.getElementById('site-menu');
-          if (btn && menu) {
-            const toggle = (open) => {
-              menu.classList.toggle('open', open);
-              btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-              btn.setAttribute('aria-label', open ? 'Luk menu' : 'Åbn menu');
-            };
-            btn.addEventListener('click', ()=> toggle(!menu.classList.contains('open')));
-            document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') toggle(false); });
-          }
-        });
+      const base = document.querySelector('meta[name="site-base"]')?.content || '../';
+      fetch(base + 'partials/header.html').then(r=>r.text()).then(html=>{
+        const host = document.getElementById('site-header'); host.outerHTML = html;
+        document.querySelectorAll('[data-path]').forEach(a=>a.setAttribute('href', base + a.getAttribute('data-path')));
+        const btn = document.getElementById('menu-toggle'), menu = document.getElementById('site-menu');
+        if(btn && menu){
+          const t = (o)=>{menu.classList.toggle('open',o);btn.setAttribute('aria-expanded',o?'true':'false');btn.setAttribute('aria-label',o?'Luk menu':'Åbn menu');};
+          btn.addEventListener('click',()=>t(!menu.classList.contains('open'))); document.addEventListener('keydown',e=>{if(e.key==='Escape')t(false);});
+        }
+        const current = document.querySelector('a[href$="lige-nu/"]'); if(current) current.setAttribute('aria-current','page');
+      });
     })();
   </script>
 
   <main id="main" class="container" role="main">
-    <section class="hero" aria-labelledby="nu-titel">
-      <h1 id="nu-titel">Lige nu</h1>
-      <p class="muted">Her samler vi hurtige opdateringer til medlemmerne. (Indhold nedenfor er en pladsholder indtil den automatiske løsning er klar.)</p>
-    </section>
+    <section class="card" aria-labelledby="ln-title">
+      <h1 id="ln-title">Lige nu</h1>
+      <p class="muted">Her viser vi den seneste besked fra bestyrelsen (slået op i Slack-kanalen).</p>
 
-    <section class="card" aria-labelledby="seneste-opdateringer">
-      <h2 id="seneste-opdateringer">Seneste opdateringer</h2>
-
-      <!-- Pladsholder-indhold -->
-      <p>Pladsholder: Her kan I manuelt indsætte en kort besked om næste arrangement, ændringer i tid/sted, online-link osv.</p>
-
-      <!-- Når Slack-integration er klar, kan vi erstatte dette område -->
-      <div id="live-updates" class="soft-divider" style="border-top:1px solid var(--panel-border);margin-top:1rem;padding-top:1rem">
-        <p class="muted" style="margin:0">Automatiske beskeder fra Slack kommer til at stå her.</p>
+      <div id="ligenu">
+        <p id="status">Henter besked…</p>
       </div>
     </section>
   </main>
@@ -69,5 +60,32 @@
     <p class="muted">© <span id="y"></span> CP Ung</p>
   </footer>
   <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+
+  <script>
+    // Gør Slack-links klikbare (understøtter både <url|label> og rene URL'er).
+    function renderSlackText(s){
+      if(!s) return '';
+      s = s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); // basic escape
+      s = s.replace(/&lt;((https?:\/\/)[^|&]+)\|([^&]+)&gt;/g, '<a href="$1" target="_blank" rel="noopener">$3</a>');
+      s = s.replace(/&lt;((https?:\/\/)[^&]+)&gt;/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+      s = s.replace(/((https?:\/\/)[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+      return s;
+    }
+
+    fetch('../data/lige-nu.json', {cache:'no-store'})
+      .then(r => r.ok ? r.json() : null)
+      .then(data => {
+        const host = document.getElementById('ligenu');
+        const status = document.getElementById('status');
+        if(!data){ status.textContent = 'Ingen besked endnu.'; return; }
+        const tsMs = parseFloat(String(data.ts).split('.')[0]) * 1000;
+        const when = isFinite(tsMs) ? new Date(tsMs).toLocaleString('da-DK',{timeZone:'Europe/Copenhagen'}) : '';
+        host.innerHTML = `
+          ${when ? `<p class="muted" style="margin:.2rem 0">Sidst opdateret: ${when}</p>` : ``}
+          <div class="msg">${renderSlackText(data.text)}</div>
+        `;
+      })
+      .catch(()=>{ const s=document.getElementById('status'); if(s) s.textContent='Kunne ikke hente beskeden.'; });
+  </script>
 </body>
 </html>
